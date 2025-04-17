@@ -1,0 +1,82 @@
+<div class="container mt-5">
+    <div class="row">
+      <!-- Sidebar Profil -->
+      <div class="col-md-4">
+        <div class="card shadow border-0 rounded-4">
+          <div class="card-body text-center">
+            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mb-3" width="100" alt="Avatar">
+            <h4 class="text-primary" style="color: #2840ca;">{{ employee?.users?.nama }}</h4>
+            <p class="text-muted mb-1">Marketing</p>
+            <p class="text-secondary small">Pondok Indah, Jakarta</p>
+            <div class="d-flex flex-column gap-2 mb-3">
+                <button class="btn btn-primary" (click)="openBranchLocation()">
+                    📍 Branch Location
+                  </button>
+                  <button class="btn btn-outline-success">
+                    💬 Message
+                  </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Form Edit -->
+      <div class="col-md-8">
+        <div class="card shadow border-0 rounded-4 mb-4">
+          <div class="card-body">
+            <h5 class="card-title text-primary" style="color: #2840ca;">Detail</h5>
+            <form>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Nama Cabang</label>
+                  <h6>{{ employee?.branch?.nama_branch }} </h6>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <h6>{{ employee?.users?.email }} </h6>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">NIP</label>
+                  <h6>{{ employee?.nip }} </h6>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Jabatan</label>
+                  <h6>{{ employee?.jabatan }} </h6>
+                </div>
+                <div class="col-md-12">
+                  <label class="form-label">Alamat Cabang</label>
+                  <h6>{{ employee?.branch?.alamat_branch }} </h6>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </div>
+  
+        <!-- Status Progress -->
+        <div class="card shadow border-0 rounded-4">
+          <div class="card-body">
+            <h5 class="card-title text-primary" style="color: #2840ca;">Achivement</h5>
+            <div class="mb-3">
+              <label class="form-label">Target</label>
+              <div class="progress">
+                <div class="progress-bar" style="width: 70%; background-color: #2840ca;"></div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Achive Target</label>
+              <div class="progress">
+                <div class="progress-bar" style="width: 30%; background-color: #00ffb3;"></div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Submission successful</label>
+              <div class="progress">
+                <div class="progress-bar" style="width: 50%; background-color: #2840ca;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

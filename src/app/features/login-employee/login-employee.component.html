@@ -1,0 +1,43 @@
+<div class="auth-basic-wrapper d-flex align-items-center justify-content-center"
+     style="background-image: url('assets/image/backgroundPinjemfin1.png'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh;">
+    <div class="container-fluid my-5 my-lg-5">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5 col-xxl-4 mx-auto">
+                <div class="card rounded-4 mb-0 border-top shadow">
+                    <div class="card-body p-5">
+                        <img src="assets/image/bcafinancelogo.png" class="mb-4" width="300" alt="Logo BCA Finance">
+                        <h4 class="fw-bold">Login Employee</h4>
+                        <p class="mb-0">Enter your credentials to login your account</p>
+
+                        <div class="form-body my-5">
+                            <form class="row g-3" (ngSubmit)="onSubmit()">
+                                <div class="col-12">
+                                    <label for="inputNip" class="form-label">NIP</label>
+                                    <input type="text" [(ngModel)]="nip" name="nip" class="form-control" id="inputNip" placeholder="Enter NIP" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputChoosePassword" class="form-label">Password</label>
+                                    <div class="input-group" id="show_hide_password">
+                                        <input [type]="showPassword ? 'text' : 'password'" [(ngModel)]="password" name="password" class="form-control" id="inputChoosePassword" placeholder="Enter Password" required>
+                                        <button type="button" class="input-group-text" style="cursor: pointer;" (click)="togglePasswordVisibility()">
+                                          <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-grd-primary" [disabled]="isLoading">
+                                            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                            {{ isLoading ? 'Logging in...' : 'Login' }}
+                                          </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

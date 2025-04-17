@@ -1,0 +1,10 @@
+/* Menggunakan ::ng-deep agar gaya diterapkan pada child element */
+::ng-deep .hover-row:hover {
+    background-color: #f1f1f1; /* Latar belakang saat hover */
+    cursor: pointer; /* Menunjukkan bahwa baris dapat diklik */
+  }
+  
+  /* Highlight tombol di kolom "Aksi" saat hover */
+  ::ng-deep .hover-row:hover td button {
+    background-color: #00cc99; /* Mengubah warna tombol saat hover */
+  }

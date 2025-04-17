@@ -1,0 +1,178 @@
+<!-- <div class="container mt-4"> -->
+  
+
+  <!-- <ngx-datatable
+  class="bootstrap"
+  [rows]="pengajuanRows"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [limit]="10">
+  
+  <ngx-datatable-column name="Nama Nasabah">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.nama }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Plafon">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      {{ row.jenisPlafon }} - Rp{{ row.jumlahPlafon | number:'1.0-0' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Jumlah Pengajuan">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      Rp{{ row.jumlahPengajuan | number:'1.0-0' }}
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column name="Aksi">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <button class="btn btn-sm text-white" [ngStyle]="{ 'background-color': '#00ffb3' }"
+        (click)="openModal(row.raw)">
+        Review
+      </button>
+    </ng-template>
+  </ngx-datatable-column>
+
+</ngx-datatable> -->
+
+<div class="container mt-4">
+  <h2 class="mb-4 text-center fw-semibold">Data Pengajuan Nasabah</h2>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nama Nasabah</th>
+        <th scope="col">Plafon</th>
+        <th scope="col">Jumlah Pengajuan</th>
+        <th scope="col">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of pengajuanRows" class="hover-row">
+        <td>{{ row.nama }}</td>
+        <td>{{ row.jenisPlafon }} - Rp{{ row.jumlahPlafon | number:'1.0-0' }}</td>
+        <td>Rp{{ row.jumlahPengajuan | number:'1.0-0' }}</td>
+        <td>
+          <button class="btn btn-sm text-white" [ngStyle]="{ 'background-color': '#00ffb3' }" (click)="openModal(row.raw)">
+            Review
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- </div> -->
+
+<!-- Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #2840ca;">
+        <h5 class="modal-title text-white" id="reviewModalLabel">Detail Pengajuan Nasabah</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+      </div>
+      <div class="modal-body" *ngIf="selectedPengajuan">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Detail Pengajuan</h5>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Nama</div>
+              <div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.users.nama }}</div>
+            </div>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Pekerjaan</div>
+              <div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.pekerjaan }}</div>
+            </div>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Plafon</div>
+              <div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jenis_plafon }} - Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jumlah_plafon | number:'1.0-0' }}</div>
+            </div>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Sisa Plafon</div>
+              <div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.sisa_plafon | number:'1.0-0' }}</div>
+            </div>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Jumlah Pengajuan</div>
+              <div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.amount | number:'1.0-0' }}</div>
+            </div>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Tenor</div>
+              <div class="col-7">{{ selectedPengajuan.id_pengajuan.tenor }} bulan</div>
+            </div>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Angsuran</div>
+              <div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.angsuran | number:'1.0-0' }}</div>
+            </div>
+      
+            <div class="row mb-3">
+              <div class="col-5 fw-bold">Status</div>
+              <div class="col-7">
+                <span class="badge bg-info text-dark">{{ selectedPengajuan.id_pengajuan.status }}</span>
+              </div>
+            </div>
+      
+            <hr>
+      
+            <h6 class="fw-bold mb-3">Info Marketing</h6>
+      
+            <div class="row mb-2">
+              <div class="col-5 fw-bold">Nama Marketing</div>
+              <div class="col-7">{{ selectedPengajuan.id_user_employee.users.nama }} ({{ selectedPengajuan.id_user_employee.jabatan }})</div>
+            </div>
+      
+            <div class="row">
+              <div class="col-5 fw-bold">Branch</div>
+              <div class="col-7">{{ selectedPengajuan.id_user_employee.branch.nama_branch }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn ms-auto mt-2" style="background-color: #00ffb3; color: white;" (click)="recomendPengajuan(selectedPengajuan.id_pengajuan.id_pengajuan)">Recomend</button>
+          <button class="btn ms-2 mt-2" style="background-color: red; color: white;" (click)="recomendPengajuan(selectedPengajuan.id_pengajuan.id_pengajuan)">Reject</button>
+        </div>
+        
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Konfirmasi -->
+<!-- Modal Konfirmasi -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #2840ca;">
+        <h5 class="modal-title text-white" id="confirmModalLabel">Konfirmasi Pengajuan</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah Anda yakin ingin merekomendasikan pengajuan ini?</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm text-white" style="background-color: #00ffb3;" (click)="confirmRecommendation(true)">
+          Ya, Recommend
+        </button>
+        <button class="btn btn-sm text-white" style="background-color: red;" (click)="confirmRecommendation(false)">
+          Tidak, Batal
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

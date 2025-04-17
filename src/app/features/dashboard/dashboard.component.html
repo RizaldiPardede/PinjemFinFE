@@ -1,0 +1,123 @@
+<!-- Sidebar -->
+<div class="sidebar shadow">
+    <a class="nav-link text-white ms-3 fw-bold fs-5" routerLink="/dashboard/detailakunmarketing">Dashboard</a>
+    <ul class="nav flex-column px-3 pt-4">
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/dashboard/detailakunmarketing" routerLinkActive="active-menu"
+        [routerLinkActiveOptions]="{ exact: true }">Detail Akun</a>
+      </li>
+        <li class="nav-item">
+          
+            <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
+                    (click)="toggleSubMenu('submenu1')"
+                    [attr.aria-expanded]="isSubMenuOpen['submenu1']"
+                    [attr.aria-controls]="'submenu1'">
+              Marketing
+              <i class="bi"
+                [class.bi-chevron-down]="!isSubMenuOpen['submenu1']"
+                [class.bi-chevron-up]="isSubMenuOpen['submenu1']"></i>
+            </button>
+          
+            <ul class="nav flex-column ms-3 collapse"
+                [ngClass]="{ show: isSubMenuOpen['submenu1'] }"
+                id="submenu1">
+              
+              <li class="nav-item">
+                <a class="nav-link text-white" routerLink="/dashboard/pengajuanmarketing" routerLinkActive="active-menu"
+                [routerLinkActiveOptions]="{ exact: true }">Pengajuan</a>
+              </li>
+            </ul>
+        </li>
+
+        <!-- Branch manager menu -->
+        <li class="nav-item">
+            <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
+                    (click)="toggleSubMenu('submenu2')"
+                    [attr.aria-expanded]="isSubMenuOpen['submenu2']"
+                    [attr.aria-controls]="'submenu2'">
+              Branch Manager
+              <i class="bi"
+                [class.bi-chevron-down]="!isSubMenuOpen['submenu2']"
+                [class.bi-chevron-up]="isSubMenuOpen['submenu2']"></i>
+            </button>
+          
+            <ul class="nav flex-column ms-3 collapse"
+                [ngClass]="{ show: isSubMenuOpen['submenu2'] }"
+                id="submenu2">
+              <li class="nav-item">
+                <a class="nav-link text-white" routerLink="/dashboard/pengajuanbranchmanager" routerLinkActive="active-menu"
+                [routerLinkActiveOptions]="{ exact: true }">Pengajuan</a>
+              </li>
+            </ul>
+        </li>
+
+
+
+        <!-- Back office  menu -->
+        <li class="nav-item">
+          <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
+                  (click)="toggleSubMenu('submenu3')"
+                  [attr.aria-expanded]="isSubMenuOpen['submenu3']"
+                  [attr.aria-controls]="'submenu3'">
+                  Back office
+            <i class="bi"
+              [class.bi-chevron-down]="!isSubMenuOpen['submenu3']"
+              [class.bi-chevron-up]="isSubMenuOpen['submenu3']"></i>
+          </button>
+        
+          <ul class="nav flex-column ms-3 collapse"
+              [ngClass]="{ show: isSubMenuOpen['submenu3'] }"
+              id="submenu3">
+            <li class="nav-item">
+              <a class="nav-link text-white" routerLink="/dashboard/pengajuanbackoffice" routerLinkActive="active-menu"
+              [routerLinkActiveOptions]="{ exact: true }">Pengajuan</a>
+            </li>
+          </ul>
+      </li>
+
+        
+          
+    </ul>
+  </div>
+  
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Topbar -->
+    <div class="topbar d-flex justify-content-between align-items-center px-3">
+      <!-- Logo -->
+      <div class="logo-topbar">
+        <img src="assets/image/bcafinancelogo.png" alt="Logo BCA Finance" class="logo-img" />
+      </div>
+  
+      <!-- Notification + User -->
+      <div class="d-flex align-items-center gap-3">
+        <button class="icon-btn" title="Notifikasi">
+          <i class="bi bi-bell"></i>
+        </button>
+        <div class="dropdown">
+          <button
+            class="btn btn-light dropdown-toggle"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            User
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Page Content -->
+    <!-- <div class="p-4">
+      <h1>Selamat datang!</h1>
+      <p>Ini konten halaman utama kamu.</p>
+    </div> -->
+    <router-outlet></router-outlet>
+  </div>
+  
