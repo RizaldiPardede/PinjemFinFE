@@ -2,11 +2,12 @@ import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { NgClass } from '@angular/common';
-
+import { MiniChatComponent } from '../mini-chat/mini-chat.component';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgClass, RouterModule],
+  imports: [NgClass, RouterModule,MiniChatComponent,CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -48,5 +49,12 @@ export class DashboardComponent implements OnInit {
       this.isLoggingOut = false;
       this.router.navigate(['/login']);
     }, 1000); // simulasi proses logout, bisa dihapus kalau async beneran
+  }
+
+
+  isChatVisible = false;
+
+  toggleChat() {
+    this.isChatVisible = !this.isChatVisible;
   }
 }

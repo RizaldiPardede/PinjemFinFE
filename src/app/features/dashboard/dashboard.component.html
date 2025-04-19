@@ -119,5 +119,10 @@
       <p>Ini konten halaman utama kamu.</p>
     </div> -->
     <router-outlet></router-outlet>
+
+    <!-- Tombol untuk membuka/menyembunyikan chat -->
+<button class="btn btn-primary chat-toggle-btn" (click)="toggleChat()">Chat</button>
+
+<app-mini-chat *ngIf="isChatVisible"></app-mini-chat>
   </div>
   
