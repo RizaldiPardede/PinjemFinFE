@@ -1,77 +1,81 @@
 body {
-    overflow-x: hidden;
-  }
-  
-  .sidebar {
-    height: 100vh;
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-image: linear-gradient(135deg, #2840ca 93%, #00ffb3 7%);
-    padding-top: 1rem;
-    color: white;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
-  }
-  
-  .sidebar .logo {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .main-content {
-    margin-left: 250px;
-  }
-  
-  .topbar {
-    height: 60px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
-    padding: 0 1rem;
-  }
-  
-  .icon-btn {
-    background: none;
-    border: none;
-    margin-right: 1rem;
-    font-size: 1.2rem;
-  }
+  overflow-x: hidden;
+}
 
-  
-  .logo {
-    padding: 0 1rem;
-  }
+/* SIDEBAR */
+.sidebar {
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(135deg, #2840ca 93%, #00ffb3 7%);
+  padding-top: 1rem;
+  color: white;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+}
 
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 
-  .logo-img {
-    max-height: 40px; /* atau 32px sesuai selera */
-    height: auto;
-    width: auto;
-    object-fit: contain;
-  }
+/* MAIN CONTENT */
+.main-content {
+  margin-left: 250px;
+}
 
-  .active-menu {
-    font-weight: bold;
-    color: #00ffb3 !important;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-left: 4px solid #00ffb3;
-    padding-left: 0.75rem;
-  }
+/* TOPBAR */
+.topbar {
+  height: 60px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 1040; /* pastikan di atas sidebar tapi di bawah dropdown */
+}
 
+.icon-btn {
+  background: none;
+  border: none;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
 
-  /* Styling untuk menempatkan chat di sudut kanan bawah */
+.logo {
+  padding: 0 1rem;
+}
+
+.logo-img {
+  max-height: 40px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+}
+
+.active-menu {
+  font-weight: bold;
+  color: #00ffb3 !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #00ffb3;
+  padding-left: 0.75rem;
+}
+
+/* CHAT BOX */
 .chat-box {
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   right: 20px;
   width: 300px;
   height: 400px;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 9999; /* Agar chat berada di atas elemen lainnya */
+  z-index: 1030;
+  
+  /* lebih tinggi dari topbar & tombol chat */
 }
 
 .chat-header {
@@ -101,6 +105,7 @@ input[type="text"] {
   border-radius: 4px;
 }
 
+/* CHAT TOGGLE BUTTON */
 .chat-toggle-btn {
   position: fixed;
   bottom: 20px;
@@ -112,5 +117,17 @@ input[type="text"] {
   font-size: 20px;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 9999;
+  z-index: 999; /* lebih rendah dari chat-box */
+}
+
+/* DROPDOWN MENU (SEMUA) */
+.dropdown-menu {
+  position: absolute !important;
+  z-index: 99999  !important; /* lebih tinggi dari chat-box dan topbar */
+}
+
+/* Optional: untuk dropdown dalam chat box agar tetap muncul di atas scroll */
+.chat-box .form-select {
+  z-index: 1100;
+  position: relative;
 }

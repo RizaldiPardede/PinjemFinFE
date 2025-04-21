@@ -4,12 +4,14 @@ import { Router, RouterModule } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { MiniChatComponent } from '../mini-chat/mini-chat.component';
 import { CommonModule } from '@angular/common';
+import { ChatService } from '../../core/component_service/ChatService';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgClass, RouterModule,MiniChatComponent,CommonModule],
+  imports: [NgClass, RouterModule, MiniChatComponent, CommonModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
@@ -20,13 +22,16 @@ export class DashboardComponent implements OnInit {
     submenu3: false
   };
 
+  isChatVisible = false;
+
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private chatService: ChatService
   ) {}
 
   ngOnInit(): void {
-    // ⛔️ Hindari akses localStorage langsung tanpa cek
+    // Cek token dan redirect ke login jika tidak ada
     if (isPlatformBrowser(this.platformId)) {
       const token = localStorage.getItem('token');
 
@@ -34,6 +39,10 @@ export class DashboardComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     }
+
+    this.chatService.chatVisibility$.subscribe((visible: boolean) => {
+      this.isChatVisible = visible;
+    });
   }
 
   toggleSubMenu(key: string) {
@@ -48,13 +57,20 @@ export class DashboardComponent implements OnInit {
       }
       this.isLoggingOut = false;
       this.router.navigate(['/login']);
-    }, 1000); // simulasi proses logout, bisa dihapus kalau async beneran
+    }, 1000); // simulasi proses logout
   }
-
-
-  isChatVisible = false;
 
   toggleChat() {
     this.isChatVisible = !this.isChatVisible;
+  }
+
+  // Menavigasi ke halaman Profile
+  goToProfile(): void {
+    this.router.navigate(['/profile']); // Ganti dengan rute yang sesuai untuk profile
+  }
+
+  // Menavigasi ke halaman Settings
+  goToSettings(): void {
+    this.router.navigate(['/settings']); // Ganti dengan rute yang sesuai untuk settings
   }
 }

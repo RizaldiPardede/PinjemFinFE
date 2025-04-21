@@ -5,6 +5,7 @@ import { DetailAkunMarketingComponent } from './features/detail-akun-marketing/d
 import { PengajuanMarketingComponent } from './features/pengajuan-marketing/pengajuan-marketing.component';
 import { PengajuanBranchmanagerComponent } from './features/pengajuan-branchmanager/pengajuan-branchmanager.component';
 import { PengajuanBackofficeComponent } from './features/pengajuan-backoffice/pengajuan-backoffice.component';
+import { ManajemenBranchComponent } from './features/manajemen-branch/manajemen-branch.component'
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadComponent: () => LoginEmployeeComponent },
@@ -27,6 +28,10 @@ export const routes: Routes = [
       },{
         path: 'pengajuanbackoffice', // ⬅️ Tambahkan path baru
         loadComponent: () => PengajuanBackofficeComponent
+      },
+      {
+        path: 'manajemenbranch', // ⬅️ Tambahkan path baru
+        loadComponent: () => ManajemenBranchComponent
       },
       {
         path: '',

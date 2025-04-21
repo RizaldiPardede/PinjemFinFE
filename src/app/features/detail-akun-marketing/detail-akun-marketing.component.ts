@@ -2,6 +2,8 @@ import { Component , OnInit} from '@angular/core';
 import { EmployeeService  } from '../../core/service/EmployeeService';
 import { HttpClientModule } from '@angular/common/http'; 
 import { CommonModule } from '@angular/common';
+import { ChatService  } from '../../core/component_service/ChatService';
+
 @Component({
   selector: 'app-detail-akun-marketing',
   imports: [CommonModule, HttpClientModule],
@@ -11,7 +13,10 @@ import { CommonModule } from '@angular/common';
 export class DetailAkunMarketingComponent implements OnInit {
   employee: any;
 
-  constructor(private employeeService: EmployeeService) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private chatService: ChatService // Tambahkan ini!
+  ) {}
 
   ngOnInit(): void {
     this.getEmployeeProfile();
@@ -37,6 +42,21 @@ export class DetailAkunMarketingComponent implements OnInit {
       window.open(url, '_blank');
     }
   }
+
+  isChatVisible = false;  // Variabel untuk mengontrol visibilitas chat
+
+  // Fungsi untuk toggle chat visibility
+  // toggleChat() {
+  //   this.isChatVisible = !this.isChatVisible;
+  // }
+
+ 
+
+openChatBox() {
+  this.isChatVisible = !this.isChatVisible;
+  this.chatService.toggleChatVisibility(this.isChatVisible);
+}
+
 
   
 }
