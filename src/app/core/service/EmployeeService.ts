@@ -5,6 +5,7 @@ import { throwError } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { disburserequest } from '../dto/disburserequest';
 import { switchMap } from 'rxjs/operators';
+import { UserEmployeUsersRequest } from '../dto/UserEmployeUsersRequest';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,6 +32,14 @@ export class EmployeeService {
       'Authorization': `Bearer ${token}`
     });
   }
+  getAllEmployee(): Observable<any> {
+    if (!this.isBrowser) {
+      return throwError(() => new Error('localStorage is not available in server environment'));
+    }
+
+    const headers = this.getAuthHeaders();
+    return this.http.get<any>(`${this.apiUrl}/getallEmployee`, { headers });
+  }
 
   getPengajuanEmployeeMarketing(): Observable<any> {
     if (!this.isBrowser) {
@@ -40,6 +49,11 @@ export class EmployeeService {
     const headers = this.getAuthHeaders();
     return this.http.get<any>(`${this.apiUrl}/getPengajuanEmployeeMarketing`, { headers });
   }
+
+  
+
+
+
   getPengajuanEmployeeBranchmanager(): Observable<any> {
     if (!this.isBrowser) {
       return throwError(() => new Error('localStorage is not available in server environment'));
@@ -98,6 +112,18 @@ export class EmployeeService {
     );  // Sending POST request with token in headers
   }
 
+
+  createEmployee(payload: UserEmployeUsersRequest): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post(`${this.apiUrl}/createAkunEmplooyee`, payload, { headers });
+  }
+  
+
+  // Fungsi untuk melakukan reset password
+  resetPassword(email: string): Observable<any> {
+    const headers = this.getAuthHeaders();
+    return this.http.post('http://localhost:8080/auth/forgot-password', { email },{ headers });
+  }
 
   
 }

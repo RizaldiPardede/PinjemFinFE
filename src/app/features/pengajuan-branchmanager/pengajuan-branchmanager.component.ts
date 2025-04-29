@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  Inject,
-  PLATFORM_ID
-} from '@angular/core';
+import {Component,OnInit,AfterViewInit,Inject, PLATFORM_ID} from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';

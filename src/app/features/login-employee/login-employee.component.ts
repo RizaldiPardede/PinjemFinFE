@@ -32,6 +32,7 @@ export class LoginEmployeeComponent {
           console.log('Login berhasil', res);
           // Simpan token ke localStorage
           localStorage.setItem('token', res.token);
+          localStorage.setItem('features', JSON.stringify(res.features));
           // Menavigasi ke halaman dashboard setelah login berhasil
           this.isLoading = false;
           this.router.navigate(['/dashboard']);

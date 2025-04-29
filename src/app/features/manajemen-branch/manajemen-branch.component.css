@@ -1,0 +1,15 @@
+.card-body {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 800px;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f9fa;
+    z-index: 10;
+  }
+  

@@ -1,0 +1,7 @@
+.card-body {
+    overflow-x: auto;
+  }
+  
+  table {
+    min-width: 800px;
+  }

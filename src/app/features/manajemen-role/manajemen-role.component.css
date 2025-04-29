@@ -1,0 +1,8 @@
+h2, h4, h5 {
+    font-weight: bold;
+  }
+  
+  .card {
+    border: none;
+    background: #ffffff;
+  }

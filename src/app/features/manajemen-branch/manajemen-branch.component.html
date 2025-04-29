@@ -88,16 +88,16 @@
   <div class="card">
     <div class="card-header">Daftar Cabang</div>
     <div class="card-body p-0">
-      <!-- Scrollable Container -->
-      <div style="max-height: 400px; overflow-y: auto; overflow-x: auto;">
-        <table class="table table-striped mb-0">
-          <thead class="table-light" style="position: sticky; top: 0; z-index: 1;">
-            <tr>
-              <th>Nama</th>
-              <th>Alamat</th>
-              <th>Latitude</th>
-              <th>Longitude</th>
-              <th>Aksi</th>
+      <!-- Wrapper khusus scroll -->
+      <div style="max-height: 400px; overflow-y: auto;">
+        <table class="table table-striped table-hover mb-0">
+          <thead class="table-light">
+            <tr style="position: sticky; top: 0; z-index: 2; background-color: #f8f9fa;">
+              <th style="background-color: #f8f9fa;">Nama</th>
+              <th style="background-color: #f8f9fa;">Alamat</th>
+              <th style="background-color: #f8f9fa;">Latitude</th>
+              <th style="background-color: #f8f9fa;">Longitude</th>
+              <th style="background-color: #f8f9fa;">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -107,14 +107,9 @@
               <td>{{ branch.latitude_branch }}</td>
               <td>{{ branch.longitude_branch }}</td>
               <td>
-                <button
-                  class="btn btn-sm btn-warning me-2"
-                  (click)="editBranch(branch)"
-                >
+                <button class="btn btn-sm btn-warning me-2" (click)="editBranch(branch)">
                   Edit
                 </button>
-                <!-- Tombol Hapus jika ingin -->
-                <!-- <button class="btn btn-sm btn-danger" (click)="deleteBranch(branch.id_branch)">Hapus</button> -->
               </td>
             </tr>
           </tbody>
