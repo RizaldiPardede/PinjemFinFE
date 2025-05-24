@@ -10,11 +10,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Modal } from 'bootstrap';
 import { EmployeeService } from '../../core/service/EmployeeService';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
+import { FeatureService } from '../shared/directives/FeatureService';
 
 @Component({
   selector: 'app-pengajuan-marketing',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NgxDatatableModule],
+  imports: [CommonModule, HttpClientModule, NgxDatatableModule,HasFeatureDirective],
+  providers: [FeatureService],
   templateUrl: './pengajuan-marketing.component.html',
   styleUrls: ['./pengajuan-marketing.component.css']
 })
@@ -28,7 +31,8 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
 
   constructor(
     private employeeService: EmployeeService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private featureService: FeatureService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -51,6 +55,9 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
         }
       });
     }
+
+    const userFeatures = this.featureService.getFeatures();
+    console.log('User Features:', userFeatures);
   }
 
   ngAfterViewInit(): void {

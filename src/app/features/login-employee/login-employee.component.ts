@@ -34,8 +34,14 @@ export class LoginEmployeeComponent {
           localStorage.setItem('token', res.token);
           localStorage.setItem('features', JSON.stringify(res.features));
           // Menavigasi ke halaman dashboard setelah login berhasil
+          if(res.isActive){
+            this.router.navigate(['/dashboard']);
+          }
+          else{
+            this.router.navigate(['/updatepassword']);
+          }
           this.isLoading = false;
-          this.router.navigate(['/dashboard']);
+          
         },
         error: (err) => {
           console.error('Login gagal', err);

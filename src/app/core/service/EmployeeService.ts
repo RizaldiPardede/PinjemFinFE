@@ -6,11 +6,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { disburserequest } from '../dto/disburserequest';
 import { switchMap } from 'rxjs/operators';
 import { UserEmployeUsersRequest } from '../dto/UserEmployeUsersRequest';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
-  private apiUrl = 'http://localhost:8080/employee';
+  private apiUrl = `${environment.apiUrl}employee`;
   private isBrowser: boolean;
   constructor(
     private http: HttpClient,
@@ -104,7 +105,7 @@ export class EmployeeService {
     const headers = this.getAuthHeaders();
 
     const url = `${this.apiUrl}/disbursement`;
-    const url2 = `http://localhost:8080/peminjaman/AddPeminjaman`;
+    const url2 = `${environment.apiUrl}peminjaman/AddPeminjaman`;
     const body = { id_pengajuan }; // Your API route for recommendation
      // Request body containing the ID
      return this.http.post(url, body, { headers }).pipe(
@@ -122,8 +123,39 @@ export class EmployeeService {
   // Fungsi untuk melakukan reset password
   resetPassword(email: string): Observable<any> {
     const headers = this.getAuthHeaders();
-    return this.http.post('http://localhost:8080/auth/forgot-password', { email },{ headers });
+    return this.http.post(`${environment.apiUrl}auth/forgot-password`, { email },{ headers });
   }
 
+  updatePassword(nip: string, newPassword: string): Observable<any> {
+    const headers = this.getAuthHeaders();
+    const body = { nip, newPassword };
+  
+    return this.http.put(`${this.apiUrl}/updatePassword`, body, { headers });
+  }
+
+  //code baru
+  getPengajuanEmployee(): Observable<any> {
+  if (!this.isBrowser) {
+    return throwError(() => new Error('localStorage is not available in server environment'));
+  }
+
+  const headers = this.getAuthHeaders();
+  return this.http.get<any>(`${this.apiUrl}/getPengajuanEmployee`, { headers });
+}
+
+ubahPassword(request: { oldPassword: string, newPassword: string }): Observable<any> {
+  const headers = this.getAuthHeaders();
+
+  return this.http.post(`${this.apiUrl}/ubahPassword`, request, { headers });
+}
+
+getAllCustomer(): Observable<any> {
+  if (!this.isBrowser) {
+    return throwError(() => new Error('localStorage is not available in server environment'));
+  }
+
+  const headers = this.getAuthHeaders();
+  return this.http.get<any>(`${this.apiUrl}/getAllCustomer`, { headers });
+}
   
 }

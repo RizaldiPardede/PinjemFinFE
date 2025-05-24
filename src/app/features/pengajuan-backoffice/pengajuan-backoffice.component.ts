@@ -98,7 +98,9 @@ export class PengajuanBackofficeComponent {
         angsuran: this.selectedPengajuan.id_pengajuan.angsuran,
         tenor: this.selectedPengajuan.id_pengajuan.tenor,
         bunga: this.selectedPengajuan.id_pengajuan.bunga,
+        total_payment: this.selectedPengajuan.id_pengajuan.total_payment,
         id_user_customer: this.selectedPengajuan.id_pengajuan.id_user_customer.id_user_customer
+        
       };
 
       this.employeeService.DisbursePengajuan(this.selectedPengajuan.id_pengajuan.id_pengajuan,dto).subscribe({

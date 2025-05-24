@@ -1,0 +1,165 @@
+<div class="container py-4">
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Distribusi Jenis Plafon</h5>
+          <div class="chart-wrapper">
+            <div class="chart-container">
+              <canvas baseChart
+                [data]="{ labels: plafonChartLabels, datasets: [{ data: plafonChartData }] }"
+                [options]="pieChartOptions"
+                [type]="'pie'">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title">Top 10 Branch Terbanyak</h5>
+          <ol class="list-group list-group-numbered">
+            <li
+              *ngFor="let branch of topBranches"
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              {{ branch.nama_branch }}
+              <span class="badge bg-primary rounded-pill">{{ branch.count }}</span>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <div class="card shadow-sm" *ngIf="customers.length > 0">
+    <div class="card-body">
+      <h5 class="card-title">Daftar Customer</h5>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Nama</th>
+              <th>Jenis Plafon</th>
+              <th>Jumlah Plafon</th>
+              <th>Sisa Plafon</th>
+              <th>Branch</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let customer of customers">
+              <td>{{ customer.users?.nama }}</td>
+              <td>{{ customer.plafon?.jenis_plafon }}</td>
+              <td>{{ customer.plafon?.jumlah_plafon | currency:'IDR' }}</td>
+              <td>{{ customer.sisa_plafon | currency:'IDR' }}</td>
+              <td>{{ customer.branch?.nama_branch }}</td>
+              <td>
+                <button
+                  class="btn btn-sm btn-primary"
+                  (click)="openDetailModal(customer)">
+                  Detail
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!customers.length && !errorMessage" class="alert alert-info">
+    Data customer tidak tersedia.
+  </div>
+</div>
+
+<!-- Modal Bootstrap -->
+<div
+  class="modal fade"
+  tabindex="-1"
+  [class.show]="selectedCustomer !== null"
+  [style.display]="selectedCustomer ? 'block' : 'none'"
+  aria-modal="true"
+  role="dialog"
+  (click)="closeDetailModal()"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered" (click)="$event.stopPropagation()">
+    <div class="modal-content border-0 shadow-lg">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">
+          <i class="bi bi-person-circle me-2"></i>
+          Detail Customer: {{ selectedCustomer?.users?.nama }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" (click)="closeDetailModal()"></button>
+      </div>
+
+      <div class="modal-body" *ngIf="selectedCustomer">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="fw-bold">Nama Lengkap</label>
+            <div>{{ selectedCustomer.users?.nama }}</div>
+
+            <label class="fw-bold mt-3">Email</label>
+            <div>{{ selectedCustomer.users?.email }}</div>
+
+            <label class="fw-bold mt-3">Tempat & Tanggal Lahir</label>
+            <div>{{ selectedCustomer.tempat_tgl_lahir }}</div>
+
+            <label class="fw-bold mt-3">No Telp</label>
+            <div>{{ selectedCustomer.no_telp }}</div>
+
+            <label class="fw-bold mt-3">Alamat</label>
+            <div>{{ selectedCustomer.alamat }}</div>
+
+            <label class="fw-bold mt-3">NIK</label>
+            <div>{{ selectedCustomer.nik }}</div>
+
+            <label class="fw-bold mt-3">Nama Ibu Kandung</label>
+            <div>{{ selectedCustomer.nama_ibu_kandung }}</div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="fw-bold">Pekerjaan</label>
+            <div>{{ selectedCustomer.pekerjaan }}</div>
+
+            <label class="fw-bold mt-3">Gaji</label>
+            <div><span class="badge bg-success">{{ selectedCustomer.gaji | currency:'IDR' }}</span></div>
+
+            <label class="fw-bold mt-3">No Rekening</label>
+            <div>{{ selectedCustomer.no_rek }}</div>
+
+            <label class="fw-bold mt-3">Status Rumah</label>
+            <div>{{ selectedCustomer.status_rumah }}</div>
+
+            <label class="fw-bold mt-3">Jenis Plafon</label>
+            <div>{{ selectedCustomer.plafon?.jenis_plafon }}</div>
+
+            <label class="fw-bold mt-3">Jumlah Plafon</label>
+            <div><span class="badge bg-primary">{{ selectedCustomer.plafon?.jumlah_plafon | currency:'IDR' }}</span></div>
+
+            <label class="fw-bold mt-3">Bunga</label>
+            <div>{{ selectedCustomer.plafon?.bunga }}%</div>
+
+            <label class="fw-bold mt-3">Sisa Plafon</label>
+            <div><span class="badge bg-warning text-dark">{{ selectedCustomer.sisa_plafon | currency:'IDR' }}</span></div>
+
+            <label class="fw-bold mt-3">Branch</label>
+            <div>{{ selectedCustomer.branch?.nama_branch }}</div>
+
+            <label class="fw-bold mt-3">Alamat Branch</label>
+            <div>{{ selectedCustomer.branch?.alamat_branch }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeDetailModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+

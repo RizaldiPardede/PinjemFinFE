@@ -19,8 +19,8 @@ export class ManajemenRoleComponent implements OnInit {
   features: any[] = [];
   newRoleName: string = '';
   selectedRoleId: string = '';
-  selectedFeatures: Set<string> = new Set();
-  roleFeatures: Set<string> = new Set();
+  selectedFeatures: Set<string> = new Set();  // Set untuk menampung fitur yang dipilih
+  roleFeatures: Set<string> = new Set();  // Set untuk menyimpan fitur yang sudah ter-attach ke role
 
   constructor(
     private roleService: RoleService,
@@ -56,20 +56,18 @@ export class ManajemenRoleComponent implements OnInit {
   }
 
   loadFeaturesByRole(roleId: string) {
-
     console.log('Memanggil API untuk mendapatkan fitur berdasarkan role:', roleId);
     const requestBody = {
       id_role: roleId // ID role yang dikirim dalam body
     };
-  
+
     this.roleFeatureService.getFeaturesByRole(requestBody).subscribe({
       next: (data) => {
-        // Pastikan data yang diterima adalah list UUID dari fitur
         console.log('Fitur yang ter-attach:', data);
-        this.roleFeatures = new Set(data); // Menyimpan fitur yang sudah ter-attach ke role
-        this.selectedFeatures.clear(); // Kosongkan selectedFeatures sebelumnya
+        this.roleFeatures = new Set(data);  // Menyimpan fitur yang sudah ter-attach ke role
+        this.selectedFeatures.clear();  // Kosongkan selectedFeatures sebelumnya
         this.roleFeatures.forEach((featureId) => {
-          this.selectedFeatures.add(featureId); // Tandai fitur yang sudah ada
+          this.selectedFeatures.add(featureId);  // Tandai fitur yang sudah ada
         });
       },
       error: (err) => {
@@ -109,15 +107,13 @@ export class ManajemenRoleComponent implements OnInit {
       error: (err) => {
         console.log('Error response:', err); // Log untuk memeriksa error
         if (err.error && err.error.message) {
-          alert( err.error.message); // Menampilkan pesan error
+          alert(err.error.message); // Menampilkan pesan error
         } else {
           alert('Terjadi kesalahan saat menghapus role'); // Pesan fallback
         }
       }
     });
   }
-  
-  
 
   toggleFeatureSelection(featureId: string) {
     if (this.selectedFeatures.has(featureId)) {
@@ -132,20 +128,18 @@ export class ManajemenRoleComponent implements OnInit {
       alert('Pilih role terlebih dahulu');
       return;
     }
-  
+
+    // Mengambil array fitur yang dipilih
     const featureArray = Array.from(this.selectedFeatures);
-  
+
     // Membuat array request untuk setiap feature yang dipilih
-    const attachRequests = featureArray.map(featureId => {
-      const requestBody = {
-        id_role: this.selectedRoleId, // Pastikan parameter ini sesuai dengan backend
-        featureIds: [featureId] // Pastikan parameter ini sesuai dengan backend
-      };
-      return this.roleFeatureService.attachFeature(requestBody);
-    });
-  
-    // Menjalankan semua request secara bersamaan
-    forkJoin(attachRequests).subscribe({
+    const requestBody = {
+      id_role: this.selectedRoleId,  // ID role yang dikirim
+      featureIds: featureArray  // Mengirimkan semua fitur yang dipilih
+    };
+
+    // Mengirim request untuk attach fitur
+    this.roleFeatureService.attachFeature(requestBody).subscribe({
       next: () => {
         alert('Fitur berhasil di-attach!');
       },

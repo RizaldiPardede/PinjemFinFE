@@ -1,0 +1,104 @@
+<!-- pengajuan-list.component.html -->
+
+<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 60vh;">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!isLoading" class="container py-4">
+  <div class="card shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Daftar Pengajuan</h5>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Nama Customer</th>
+            <th>Plafon</th>
+            <th>Status</th>
+            <th>Marketing</th>
+            <th>Branch</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pengajuans">
+            <td>{{ item.id_pengajuan.id_user_customer.users.nama || 'Tanpa Nama' }}</td>
+            <td>{{ item.id_pengajuan.id_user_customer.plafon.jumlah_plafon | currency:'IDR' }}</td>
+            <td>
+              <span class="badge bg-info text-dark text-uppercase">
+                {{ item.id_pengajuan.status.replace('_', ' ') }}
+              </span>
+            </td>
+            <td>{{ item.id_user_employee.users.nama }}</td>
+            <td>{{ item.id_user_employee.branch.nama_branch }}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm" (click)="openDetailModal(item)">
+                <i class="bi bi-eye"></i> Detail
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Detail -->
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <div class="modal-content" *ngIf="selectedPengajuan">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="detailModalLabel">Detail Pengajuan</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <h6>Informasi Customer</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Nama:</strong> {{ selectedPengajuan.id_pengajuan.id_user_customer.users.nama }}</li>
+              <li class="list-group-item"><strong>Alamat:</strong> {{ selectedPengajuan.id_pengajuan.id_user_customer.alamat }}</li>
+              <li class="list-group-item"><strong>No Telp:</strong> {{ selectedPengajuan.id_pengajuan.id_user_customer.no_telp }}</li>
+              <li class="list-group-item"><strong>NIK:</strong> {{ selectedPengajuan.id_pengajuan.id_user_customer.nik }}</li>
+              <li class="list-group-item"><strong>Pekerjaan:</strong> {{ selectedPengajuan.id_pengajuan.id_user_customer.pekerjaan }}</li>
+            </ul>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h6>Informasi Pengajuan</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Status:</strong> 
+                <span class="badge bg-secondary text-uppercase">{{ selectedPengajuan.id_pengajuan.status.replace('_', ' ') }}</span>
+              </li>
+              <li class="list-group-item"><strong>Jumlah:</strong> {{ selectedPengajuan.id_pengajuan.amount | currency:'IDR' }}</li>
+              <li class="list-group-item"><strong>Tenor:</strong> {{ selectedPengajuan.id_pengajuan.tenor }} bulan</li>
+              <li class="list-group-item"><strong>Angsuran:</strong> {{ selectedPengajuan.id_pengajuan.angsuran | currency:'IDR' }}</li>
+              <li class="list-group-item"><strong>Total Pembayaran:</strong> {{ selectedPengajuan.id_pengajuan.total_payment | currency:'IDR' }}</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6 mb-3">
+            <h6>Marketing</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Nama:</strong> {{ selectedPengajuan.id_user_employee.users.nama }}</li>
+              <li class="list-group-item"><strong>NIP:</strong> {{ selectedPengajuan.id_user_employee.nip }}</li>
+            </ul>
+          </div>
+          <div class="col-md-6 mb-3">
+            <h6>Branch</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Cabang:</strong> {{ selectedPengajuan.id_user_employee.branch.nama_branch }}</li>
+              <li class="list-group-item"><strong>Alamat:</strong> {{ selectedPengajuan.id_user_employee.branch.alamat_branch }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>

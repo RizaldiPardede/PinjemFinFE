@@ -6,7 +6,9 @@
       <a class="nav-link text-white" routerLink="/dashboard/detailakunmarketing" routerLinkActive="active-menu"
         [routerLinkActiveOptions]="{ exact: true }">Detail Akun</a>
     </li>
-    <li class="nav-item">
+
+    <!-- Marketing menu -->
+    <li *appHasFeature="'feature_getPengajuanMarketing'" class="nav-item">
       <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
         (click)="toggleSubMenu('submenu1')" [attr.aria-expanded]="isSubMenuOpen['submenu1']"
         [attr.aria-controls]="'submenu1'">
@@ -23,7 +25,7 @@
     </li>
 
     <!-- Branch manager menu -->
-    <li class="nav-item">
+    <li *appHasFeature="'feature_getPengajuanBM'" class="nav-item">
       <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
         (click)="toggleSubMenu('submenu2')" [attr.aria-expanded]="isSubMenuOpen['submenu2']"
         [attr.aria-controls]="'submenu2'">
@@ -40,7 +42,7 @@
     </li>
 
     <!-- Back office menu -->
-    <li class="nav-item">
+    <li *appHasFeature="'feature_getPengajuanBackOffice'" class="nav-item">
       <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
         (click)="toggleSubMenu('submenu3')" [attr.aria-expanded]="isSubMenuOpen['submenu3']"
         [attr.aria-controls]="'submenu3'">
@@ -56,20 +58,35 @@
       </ul>
     </li>
     <!--manajemen branch-->
-  <li class="nav-item">
+  <li *appHasFeature="'feature_getAllCabang'" class="nav-item">
     <a class="nav-link text-white" routerLink="/dashboard/manajemenbranch" routerLinkActive="active-menu"
       [routerLinkActiveOptions]="{ exact: true }">Branch</a>
   </li>
 
   <!--manajemen user employee-->
-  <li class="nav-item">
+  <li *appHasFeature="'feature_getAllEmployee'" class="nav-item">
     <a class="nav-link text-white" routerLink="/dashboard/manajemenuseremployee" routerLinkActive="active-menu"
       [routerLinkActiveOptions]="{ exact: true }">Employee</a>
   </li>
-
-  <li class="nav-item">
+<!--manajemen Role employee-->
+  <li *appHasFeature="'feature_getAllRole'" class="nav-item">
     <a class="nav-link text-white" routerLink="/dashboard/manajemenrole" routerLinkActive="active-menu"
       [routerLinkActiveOptions]="{ exact: true }">Role</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link text-white" routerLink="/dashboard/pengajuanlist" routerLinkActive="active-menu"
+      [routerLinkActiveOptions]="{ exact: true }">History Pengajuan</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link text-white" routerLink="/dashboard/manajemencustomer" routerLinkActive="active-menu"
+      [routerLinkActiveOptions]="{ exact: true }">Customer</a>
+  </li>
+
+  <li class="nav-item">
+    <a class="nav-link text-white" routerLink="/dashboard/manajemenplafon" routerLinkActive="active-menu"
+      [routerLinkActiveOptions]="{ exact: true }">Plafon</a>
   </li>
   </ul>
 

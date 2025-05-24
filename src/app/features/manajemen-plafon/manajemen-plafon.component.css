@@ -1,0 +1,6 @@
+.plafon-img {
+  width: 120px;      /* ukuran lebar gambar */
+  height: 80px;      /* ukuran tinggi gambar */
+  object-fit: contain;
+  
+}

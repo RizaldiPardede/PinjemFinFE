@@ -9,10 +9,17 @@ import { ManajemenBranchComponent } from './features/manajemen-branch/manajemen-
 import { ManajemenUsersemployeeComponent } from './features/manajemen-usersemployee/manajemen-usersemployee.component';
 import {FormResetpasswordComponent} from './features/form-resetpassword/form-resetpassword.component';
 import {ManajemenRoleComponent} from './features/manajemen-role/manajemen-role.component';
+import {PengajuanListComponent} from './features/pengajuan-list/pengajuan-list.component';
+import {UpdatePasswordComponent} from './features/update-password/update-password.component';
+import {ManajemenCustomerComponent} from './features/manajemen-customer/manajemen-customer.component';
+import {ManajemenPlafonComponent} from './features/manajemen-plafon/manajemen-plafon.component';
+import { featureGuard } from './guards/feature.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', loadComponent: () => LoginEmployeeComponent },
-
+  
+  { path: 'updatepassword', loadComponent: () => UpdatePasswordComponent },
+  
   {
     path: 'dashboard',
     loadComponent: () => DashboardComponent,
@@ -23,7 +30,9 @@ export const routes: Routes = [
       },
       {
         path: 'pengajuanmarketing', // ⬅️ Tambahkan path baru
-        loadComponent: () => PengajuanMarketingComponent
+        loadComponent: () => PengajuanMarketingComponent,
+        // canActivate: [featureGuard],
+        // data: { requiredFeature: 'feature_getIdUserCustomer' }
       },
       {
         path: 'pengajuanbranchmanager', // ⬅️ Tambahkan path baru
@@ -45,6 +54,17 @@ export const routes: Routes = [
         path: 'manajemenrole', // ⬅️ Tambahkan path baru
         loadComponent: () => ManajemenRoleComponent
       },
+
+      {
+        path: 'pengajuanlist', // ⬅️ Tambahkan path baru
+        loadComponent: () => PengajuanListComponent
+      },
+      {path: 'manajemencustomer', 
+        loadComponent: () => ManajemenCustomerComponent },
+
+      {path: 'manajemenplafon', 
+        loadComponent: () => ManajemenPlafonComponent },
+
       {
         path: '',
         redirectTo: 'detailakunmarketing',

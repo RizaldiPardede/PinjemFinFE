@@ -5,11 +5,14 @@ import { NgClass } from '@angular/common';
 import { MiniChatComponent } from '../mini-chat/mini-chat.component';
 import { CommonModule } from '@angular/common';
 import { ChatService } from '../../core/component_service/ChatService';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
+import { FeatureService } from '../shared/directives/FeatureService';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgClass, RouterModule, MiniChatComponent, CommonModule],
+  imports: [NgClass, RouterModule, MiniChatComponent, CommonModule,HasFeatureDirective],
+  providers: [FeatureService],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })

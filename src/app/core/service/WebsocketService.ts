@@ -4,7 +4,7 @@ import SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 import { Observable } from 'rxjs';
 import { employeWSresponse } from '../dto/employeWSresponse';
-
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +26,7 @@ export class WebsocketService {
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    return this.http.get<employeWSresponse[]>('http://localhost:8080/employee/getAllEmoloyeeNipName', { headers });
+    return this.http.get<employeWSresponse[]>(`${environment.apiUrl}employee/getAllEmoloyeeNipName`, { headers });
   }
 
   // Method untuk menyimpan karyawan
@@ -47,7 +47,7 @@ export class WebsocketService {
     }
 
     // Panggil API untuk ambil NIP
-    this.http.post<employeWSresponse>('http://localhost:8080/employee/getNipFromtoken', {}, {
+    this.http.post<employeWSresponse>(`${environment.apiUrl}employee/getNipFromtoken`, {}, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (res: employeWSresponse) => {
@@ -61,7 +61,7 @@ export class WebsocketService {
   }
 
   private initializeWebSocketConnection(nip: number, token: string, onMessage: (msg: any) => void) {
-    const socket = new SockJS('http://localhost:8080/ws');
+    const socket = new SockJS(`${environment.apiUrl}ws`);
     this.stompClient = Stomp.over(socket);
     
     this.stompClient.connect({ 'Authorization': `Bearer ${token}` }, (frame: any) => {

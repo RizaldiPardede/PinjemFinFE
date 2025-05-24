@@ -1,0 +1,88 @@
+<div class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">{{ isEdit ? 'Edit' : 'Tambah' }} Plafon</h5>
+      <button class="btn btn-sm btn-light" *ngIf="isEdit" (click)="resetForm()">Batal Edit</button>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="plafonForm" (ngSubmit)="onSubmit()">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label for="jenisPlafon" class="form-label">Jenis Plafon</label>
+            <input
+              type="text"
+              id="jenisPlafon"
+              class="form-control"
+              formControlName="jenis_plafon"
+              placeholder="Contoh: Kredit Mobil"
+              required
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="jumlahPlafon" class="form-label">Jumlah Plafon</label>
+            <input type="number" id="jumlahPlafon" class="form-control" formControlName="jumlah_plafon" min="0" required />
+          </div>
+          <div class="col-md-4">
+            <label for="bunga" class="form-label">Bunga (%)</label>
+            <input type="number" id="bunga" class="form-control" formControlName="bunga" min="0" required />
+          </div>
+        </div>
+
+        <div class="mt-4 text-end">
+          <button type="submit" class="btn btn-success">
+            {{ isEdit ? 'Simpan Perubahan' : 'Tambah Plafon' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card mt-4 shadow-sm">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0">Daftar Plafon</h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Jenis Plafon</th>
+              <th>Jumlah Plafon</th>
+              <th>Bunga (%)</th>
+              <th class="text-end">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let plafon of plafonList; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td class="d-flex align-items-center gap-2">
+                <img
+                  [src]="getPlafonImage(plafon.jenis_plafon)"
+                  alt="{{ plafon.jenis_plafon }}"
+                  class="plafon-img"
+                  width="40"
+                  height="40"
+                />
+                {{ plafon.jenis_plafon }}
+              </td>
+              <td>{{ plafon.jumlah_plafon | currency: 'IDR' }}</td>
+              <td>{{ plafon.bunga }}</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-warning me-2" (click)="onEdit(plafon)">
+                  <i class="bi bi-pencil"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="onDelete(plafon.id_plafon)">
+                  <i class="bi bi-trash"></i> Hapus
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="plafonList.length === 0">
+              <td colspan="5" class="text-center py-4 text-muted">Belum ada data plafon</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

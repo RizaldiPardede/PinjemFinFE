@@ -1,48 +1,12 @@
 <!-- <div class="container mt-4"> -->
   
 
-  <!-- <ngx-datatable
-  class="bootstrap"
-  [rows]="pengajuanRows"
-  [columnMode]="'force'"
-  [headerHeight]="50"
-  [footerHeight]="50"
-  [rowHeight]="'auto'"
-  [limit]="10">
-  
-  <ngx-datatable-column name="Nama Nasabah">
-    <ng-template let-row="row" ngx-datatable-cell-template>
-      {{ row.nama }}
-    </ng-template>
-  </ngx-datatable-column>
 
-  <ngx-datatable-column name="Plafon">
-    <ng-template let-row="row" ngx-datatable-cell-template>
-      {{ row.jenisPlafon }} - Rp{{ row.jumlahPlafon | number:'1.0-0' }}
-    </ng-template>
-  </ngx-datatable-column>
-
-  <ngx-datatable-column name="Jumlah Pengajuan">
-    <ng-template let-row="row" ngx-datatable-cell-template>
-      Rp{{ row.jumlahPengajuan | number:'1.0-0' }}
-    </ng-template>
-  </ngx-datatable-column>
-
-  <ngx-datatable-column name="Aksi">
-    <ng-template let-row="row" ngx-datatable-cell-template>
-      <button class="btn btn-sm text-white" [ngStyle]="{ 'background-color': '#00ffb3' }"
-        (click)="openModal(row.raw)">
-        Review
-      </button>
-    </ng-template>
-  </ngx-datatable-column>
-
-</ngx-datatable> -->
 
 <div class="container mt-4">
   <h2 class="mb-4 text-center fw-semibold">Data Pengajuan Nasabah</h2>
 
-  <table class="table table-striped">
+  <table  class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Nama Nasabah</th>

@@ -2,14 +2,14 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResetPasswordService {
 
-  private apiUrl = 'http://localhost:8080/auth/reset-password';
+  private apiUrl = `${environment.apiUrl}auth/reset-password`;
 
   private isBrowser: boolean;
   constructor(
