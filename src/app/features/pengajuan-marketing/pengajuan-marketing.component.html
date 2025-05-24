@@ -32,86 +32,152 @@
 
 <!-- </div> -->
 
-<!-- Modal -->
+<!-- Modal Review Pengajuan -->
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header" style="background-color: #2840ca;">
-        <h5 class="modal-title text-white" id="reviewModalLabel">Detail Pengajuan Nasabah</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+        <h5 class="modal-title text-white">Detail Pengajuan </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       <div class="modal-body" *ngIf="selectedPengajuan">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body">
-            <h5 class="card-title mb-3">Detail Pengajuan</h5>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Nama</div>
-              <div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.users.nama }}</div>
-            </div>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Pekerjaan</div>
-              <div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.pekerjaan }}</div>
-            </div>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Plafon</div>
-              <div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jenis_plafon }} - Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jumlah_plafon | number:'1.0-0' }}</div>
-            </div>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Sisa Plafon</div>
-              <div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.sisa_plafon | number:'1.0-0' }}</div>
-            </div>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Jumlah Pengajuan</div>
-              <div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.amount | number:'1.0-0' }}</div>
-            </div>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Tenor</div>
-              <div class="col-7">{{ selectedPengajuan.id_pengajuan.tenor }} bulan</div>
-            </div>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Angsuran</div>
-              <div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.angsuran | number:'1.0-0' }}</div>
-            </div>
-      
-            <div class="row mb-3">
-              <div class="col-5 fw-bold">Status</div>
-              <div class="col-7">
-                <span class="badge bg-info text-dark">{{ selectedPengajuan.id_pengajuan.status }}</span>
-              </div>
-            </div>
-      
-            <hr>
-      
-            <h6 class="fw-bold mb-3">Info Marketing</h6>
-      
-            <div class="row mb-2">
-              <div class="col-5 fw-bold">Nama Marketing</div>
-              <div class="col-7">{{ selectedPengajuan.id_user_employee.users.nama }} ({{ selectedPengajuan.id_user_employee.jabatan }})</div>
-            </div>
-      
-            <div class="row">
-              <div class="col-5 fw-bold">Branch</div>
-              <div class="col-7">{{ selectedPengajuan.id_user_employee.branch.nama_branch }}</div>
+        <!-- SLIDE 1: Data Pengajuan & Info Marketing -->
+        <div *ngIf="currentSlide === 1">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title mb-3">Detail Customer</h5>
+
+              <div class="row mb-2"><div class="col-5 fw-bold">Nama</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.users.nama }}</div></div>
+              <div class="row mb-2"><div class="col-5 fw-bold">Pekerjaan</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.pekerjaan }}</div></div>
+              <div class="row mb-2"><div class="col-5 fw-bold">Plafon</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jenis_plafon }} - Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jumlah_plafon | number:'1.0-0' }}</div></div>
+              <div class="row mb-2"><div class="col-5 fw-bold">Sisa Plafon</div><div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.sisa_plafon | number:'1.0-0' }}</div></div>
+              <div class="row mb-2"><div class="col-5 fw-bold">Jumlah Pengajuan</div><div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.amount | number:'1.0-0' }}</div></div>
+              <div class="row mb-2"><div class="col-5 fw-bold">Tenor</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.tenor }} bulan</div></div>
+              <div class="row mb-2"><div class="col-5 fw-bold">Angsuran</div><div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.angsuran | number:'1.0-0' }}</div></div>
+              <div class="row mb-3"><div class="col-5 fw-bold">Status</div><div class="col-7"><span class="badge bg-info text-dark">{{ selectedPengajuan.id_pengajuan.status }}</span></div></div>
+
+              <hr>
+              <h6 class="fw-bold mb-3">Info Marketing</h6>
+              <div class="row mb-2"><div class="col-5 fw-bold">Nama Marketing</div><div class="col-7">{{ selectedPengajuan.id_user_employee.users.nama }} ({{ selectedPengajuan.id_user_employee.jabatan }})</div></div>
+              <div class="row"><div class="col-5 fw-bold">Branch</div><div class="col-7">{{ selectedPengajuan.id_user_employee.branch.nama_branch }}</div></div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn ms-auto mt-2" style="background-color: #00ffb3; color: white;" (click)="recomendPengajuan(selectedPengajuan.id_pengajuan.id_pengajuan)">Recomend</button>
-          <button class="btn ms-2 mt-2" style="background-color: red; color: white;" (click)="recomendPengajuan(selectedPengajuan.id_pengajuan.id_pengajuan)">Reject</button>
+
+        <!-- SLIDE 2: Gambar Dokumen dan Tab Catatan -->
+        <div *ngIf="currentSlide === 2" class="row">
+  <!-- Bagian Dokumen List di kiri -->
+        <div class="col-md-5">
+          <h5 class="mb-3">Dokumen</h5>
+          <div class="d-flex flex-wrap gap-2">
+            <ng-container *ngFor="let dok of dokumenList">
+              <div *ngIf="dok.imageType !== 'profile'" class="text-center" style="cursor:pointer;" (click)="openPreview(dok.imageUrl)">
+                <div class="fw-bold mb-1" style="font-size: 0.9rem;">{{ dok.imageType }}</div>
+                <img [src]="dok.imageUrl" 
+                    alt="{{ dok.imageType }}" 
+                    class="img-thumbnail" 
+                    style="width: 260px; height: 130px; object-fit: cover;" />
+              </div>
+            </ng-container>
+          </div>
         </div>
-        
-        
-        
+
+        <!-- Bagian Detail Customer di kanan -->
+        <div class="col-md-7">
+          <h5 class="card-title mb-3">Detail Customer</h5>
+          <div *ngIf="profileDoc" class="mb-2 fw-bold text-center" style="cursor:pointer;" (click)="openPreview(profileDoc.imageUrl)">
+            <!-- {{ profileDoc.imageType }}
+            <br /> -->
+            <img [src]="profileDoc.imageUrl" 
+                alt="{{ profileDoc.imageType }}" 
+                class="img-thumbnail rounded-circle" 
+                style="width: 130px; height: 130px; object-fit: cover;" />
+          </div>
+                    
+          <div class="row mb-3"><div class="col-5 fw-bold">Nama</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.users.nama }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">NIK</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.nik }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Nama ibu kandung</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.nama_ibu_kandung }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Pekerjaan</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.pekerjaan }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Gaji</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.gaji }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Alamat</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.alamat }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">No. HP</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.no_telp }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Email</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.users.email }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Tempat dan Tanggal Lahir</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.tempat_tgl_lahir }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Status Rumah</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.status_rumah }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Jenis Plafon</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jenis_plafon }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Jumlah Plafon</div><div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.plafon.jumlah_plafon | number:'1.0-0' }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Sisa Plafon</div><div class="col-7">Rp{{ selectedPengajuan.id_pengajuan.id_user_customer.sisa_plafon | number:'1.0-0' }}</div></div>
+          <div class="row mb-3"><div class="col-5 fw-bold">Nomor Rekening</div><div class="col-7">{{ selectedPengajuan.id_pengajuan.id_user_customer.no_rek }}</div></div>
+
+          <ul class="nav nav-tabs mt-3" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#noteNow" type="button" role="tab" aria-selected="true">Note Saat Ini</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#notePrev" type="button" role="tab" aria-selected="false">Note Sebelumnya</button>
+            </li>
+          </ul>
+          <div class="tab-content border rounded p-2">
+            <div class="tab-pane fade show active" id="noteNow" role="tabpanel">
+              <textarea class="form-control" rows="3" [(ngModel)]="noteBaru" placeholder="Tulis catatan..."></textarea>
+            </div>
+
+            <div class="tab-pane fade" id="notePrev" role="tabpanel">
+              <p *ngIf="!noteSebelumnya?.length" class="text-muted">Belum ada catatan sebelumnya.</p>
+
+              <table *ngIf="noteSebelumnya?.length" class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nama Employee</th>
+                    <th>Jabatan</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let note of noteSebelumnya">
+                    <td>{{ note.nama }}</td>
+                    <td>{{ note.nama_role }}</td>
+                    <td>{{ note.note }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
       </div>
+
+      <!-- Modal Preview Gambar -->
+      <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="imagePreviewLabel">Preview Dokumen</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <img [src]="previewImageUrl" alt="Preview" class="img-fluid" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- Modal Footer -->
       
     </div>
+
+    <div class="modal-footer d-flex justify-content-between">
+        <button class="btn btn-outline-secondary" *ngIf="currentSlide === 2" (click)="currentSlide = 1">← Sebelumnya</button>
+        <button class="btn btn-primary" *ngIf="currentSlide === 1" (click)="currentSlide = 2">Lanjut →</button>
+
+        <div *ngIf="currentSlide === 2" class="d-flex gap-2">
+          <button class="btn text-white" style="background-color: #00ffb3;" (click)="recomendPengajuan(selectedPengajuan.id_pengajuan.id_pengajuan)">Rekomendasikan</button>
+          <button class="btn text-white" style="background-color: red;" (click)="recomendPengajuan(selectedPengajuan.id_pengajuan.id_pengajuan)">Tolak</button>
+        </div>
+      </div>
   </div>
 </div>
 

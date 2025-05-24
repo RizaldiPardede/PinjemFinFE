@@ -83,20 +83,20 @@ export class EmployeeService {
   }
 
    // Method to recommend pengajuan with token in header
-   recommendPengajuan(id_pengajuan: string): Observable<any> {
+   recommendPengajuan(id_pengajuan: string,note: string): Observable<any> {
     const headers = this.getAuthHeaders();
 
     const url = `${this.apiUrl}/recomendMarketing`;  // Your API route for recommendation
-    const body = { id_pengajuan };  // Request body containing the ID
+    const body = { id_pengajuan ,note };  // Request body containing the ID
     
     return this.http.post(url, body, { headers });  // Sending POST request with token in headers
   }
 
-  AprovePengajuan(id_pengajuan: string): Observable<any> {
+  AprovePengajuan(id_pengajuan: string,note: string): Observable<any> {
     const headers = this.getAuthHeaders();
 
     const url = `${this.apiUrl}/approveBranchManager`;  // Your API route for recommendation
-    const body = { id_pengajuan };  // Request body containing the ID
+    const body = { id_pengajuan,note };  // Request body containing the ID
     
     return this.http.post(url, body, { headers });  // Sending POST request with token in headers
   }
@@ -156,6 +156,17 @@ getAllCustomer(): Observable<any> {
 
   const headers = this.getAuthHeaders();
   return this.http.get<any>(`${this.apiUrl}/getAllCustomer`, { headers });
+}
+
+getNote(id_pengajuan: string): Observable<any> {
+  if (!this.isBrowser) {
+    return throwError(() => new Error('localStorage is not available in server environment'));
+  }
+
+  const headers = this.getAuthHeaders();
+  const body = { id_pengajuan };
+
+  return this.http.post<any>(`${this.apiUrl}/getNote`, body, { headers });
 }
   
 }
