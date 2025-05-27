@@ -106,4 +106,534 @@ You can add global styles to this file, and also import other style files
     font-weight: 900;
     font-style: italic;
   }
-  
+
+
+
+ 
+
+
+  /* You can add global styles to this file, and also import other style files */
+/*============================== Default CSS ==============================*/
+ :root {
+	 --fontFamily: 'Poppins', sans-serif;
+	 --headingFontFamily: 'Open Sans', sans-serif;
+	 --secondaryColor: #717477;
+	 --whiteColor: #fff;
+	 --blackColor: #0f2137;
+	 --transition: 0.5s;
+}
+ body {
+	 margin: 0;
+	 padding: 0;
+	 color: var(--blackColor);
+	 font-size: var(--fontSize);
+	 font-family: var(--fontFamily);
+}
+ img {
+	 max-width: 100%;
+	 height: auto;
+}
+ a {
+	 text-decoration: none;
+	 color: var(--blackColor);
+	 transition: var(--transition);
+}
+ a:hover {
+	 text-decoration: none;
+}
+ p {
+	 color: var(--secondaryColor);
+	 margin-bottom: 15px;
+	 line-height: 1.9;
+}
+ p:last-child {
+	 margin-bottom: 0;
+}
+ .mr-3, .mx-3 {
+	 margin-right: 1rem !important;
+}
+ .d-table {
+	 width: 100%;
+	 height: 100%;
+}
+ .d-table-cell {
+	 display: table-cell;
+	 vertical-align: middle;
+}
+ .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+	 font-family: var(--headingFontFamily);
+	 color: var(--blackColor);
+}
+ .ptb-100 {
+	 padding-top: 100px;
+	 padding-bottom: 100px;
+}
+ .pt-100 {
+	 padding-top: 100px;
+}
+ .pb-100 {
+	 padding-bottom: 100px;
+}
+ .ptb-70 {
+	 padding-top: 70px;
+	 padding-bottom: 70px;
+}
+ .pt-70 {
+	 padding-top: 70px;
+}
+ .pb-70 {
+	 padding-bottom: 70px;
+}
+ .section-title {
+	 max-width: 600px;
+	 text-align: center;
+	 margin-left: auto;
+	 margin-right: auto;
+	 margin-bottom: 60px;
+}
+ .section-title span {
+	 display: block;
+	 line-height: 1;
+	 color: #e54f4f;
+	 margin-bottom: 17px;
+	 font-size: 16px;
+	 font-weight: 700;
+	 font-family: var(--headingFontFamily);
+}
+ .section-title h2 {
+	 color: var(--blackColor);
+	 margin-bottom: 0;
+	 font-size: 38px;
+	 font-weight: 700;
+}
+ .section-title p {
+	 margin-top: 15px;
+}
+/*pricing-tabs*/
+ .pricing-tabs .nav-tabset {
+	 padding-left: 0;
+	 margin-bottom: 60px;
+	 list-style-type: none;
+	 text-align: center;
+}
+ .pricing-tabs .nav-tabset .nav-tab {
+	 display: inline-block;
+}
+ .pricing-tabs .nav-tabset .nav-tab span {
+	 color: #0060D6;
+	 padding: 15px 35px;
+	 border: 1px solid #0060D6;
+	 cursor: pointer;
+	 border-radius: 50px;
+	 display: inline-block;
+	 margin: 0 5px;
+	 transition: var(--transition);
+	 font-size: 16px;
+	 font-family: var(--headingFontFamily);
+	 font-weight: 600;
+}
+ .pricing-tabs .nav-tabset .nav-tab span:hover {
+	 background: #0060D6;
+	 color: var(--whiteColor);
+	 border: 1px solid transparent;
+}
+ .pricing-tabs .nav-tabset .nav-tab.active span {
+	 background: #0060D6;
+	 color: var(--whiteColor);
+	 border: 1px solid transparent;
+}
+ .software-section .software-text .nav-tabset {
+	 padding-left: 0;
+	 margin-bottom: 30px;
+	 list-style-type: none;
+}
+ .software-section .software-text .nav-tabset .nav-tab {
+	 padding: 0;
+	 background: none;
+	 margin-right: 20px;
+	 display: inline-block;
+}
+ .software-section .software-text .nav-tabset .nav-tab span {
+	 border: 0;
+	 padding: 0;
+	 cursor: pointer;
+	 font-weight: 600;
+	 display: inline-block;
+	 color: var(--whiteColor);
+	 border-bottom: 3px solid transparent;
+}
+ .software-section .software-text .nav-tabset .nav-tab.active span {
+	 border-color: var(--whiteColor) !important;
+	 color: var(--whiteColor) !important;
+}
+ .software-section .software-text .nav-tabset .nav-tab:last-child {
+	 margin-right: 0;
+}
+/*owl-carousel*/
+ .testimonial-slider .owl-prev, .testimonial-slider .owl-next {
+	 left: 0;
+	 width: 45px;
+	 height: 45px;
+	 bottom: -20px;
+	 position: absolute;
+	 text-align: center;
+	 margin: 0 !important;
+	 font-size: 14px !important;
+	 color: #0898e7 !important;
+	 transition: var(--transition);
+	 border-radius: 40px !important;
+	 border: 1px solid #0898e7 !important;
+	 background-color: transparent !important;
+}
+ .testimonial-slider .owl-prev:hover, .testimonial-slider .owl-next:hover {
+	 background: #0898e7 !important;
+	 color: var(--whiteColor) !important;
+}
+ .testimonial-slider .owl-prev i, .testimonial-slider .owl-next i {
+	 left: 0;
+	 right: 0;
+	 top: 50%;
+	 position: absolute;
+	 transform: translateY(-50%);
+}
+ .testimonial-slider .owl-next {
+	 left: 60px;
+}
+ .testimonial-style-two .testimonial-slider-area .owl-prev, .testimonial-style-two .testimonial-slider-area .owl-next {
+	 width: 45px;
+	 height: 45px;
+	 border: 1px solid #7c58fc !important;
+	 display: inline-block;
+	 position: absolute;
+	 left: -110px;
+	 font-size: 16px !important;
+	 color: #7c58fc !important;
+	 border-radius: 50px;
+	 top: 50%;
+	 transition: var(--transition);
+	 background-color: transparent !important;
+}
+ .testimonial-style-two .testimonial-slider-area .owl-prev i, .testimonial-style-two .testimonial-slider-area .owl-next i {
+	 position: absolute;
+	 left: 0;
+	 right: 0;
+	 top: 50%;
+	 transform: translateY(-50%);
+}
+ .testimonial-style-two .testimonial-slider-area .owl-prev:hover, .testimonial-style-two .testimonial-slider-area .owl-next:hover {
+	 background: #7c58fc !important;
+	 color: var(--whiteColor) !important;
+}
+ .testimonial-style-two .testimonial-slider-area .owl-next {
+	 left: inherit;
+	 right: -110px;
+}
+ .screenshots-section .screenshot-slider .owl-stage {
+	 padding-top: 30px;
+}
+ .screenshots-section .screenshot-slider .center {
+	 margin-top: -30px;
+	 transition: 1s;
+}
+ .screenshots-section .screenshot-slider .center img {
+	 box-shadow: 0px 12px 28px rgba(72, 73, 121, .1);
+}
+ .screenshots-section .screenshot-slider .owl-dot span {
+	 width: 5px;
+	 height: 5px;
+	 margin: 0 3px;
+	 border-radius: 3px;
+	 background: #0a96e5 !important;
+}
+ .screenshots-section .screenshot-slider .owl-dot.active {
+	 width: 25px;
+	 border-radius: 5px;
+	 background: #0a96e5 !important;
+}
+ .how-use .how-use-slider .owl-dot span {
+	 width: 5px;
+	 height: 5px;
+	 margin: 0 3px;
+	 border-radius: 3px;
+	 background: #0a96e5 !important;
+}
+ .how-use .how-use-slider .owl-dot.active {
+	 width: 25px;
+	 border-radius: 5px;
+	 background: #0a96e5 !important;
+}
+ .testimonial-text-slider .owl-prev, .testimonial-text-slider .owl-next {
+	 left: 0;
+	 top: 50%;
+	 width: 45px;
+	 height: 45px;
+	 position: absolute;
+	 text-align: center;
+	 margin: 0 !important;
+	 font-size: 14px !important;
+	 transform: translateY(-50%);
+	 transition: var(--transition);
+	 border-radius: 40px !important;
+	 color: var(--whiteColor) !important;
+	 background-color: transparent !important;
+	 border: 1px solid var(--whiteColor) !important;
+}
+ .testimonial-text-slider .owl-prev:hover, .testimonial-text-slider .owl-next:hover {
+	 background: var(--whiteColor) !important;
+	 color: var(--blackColor) !important;
+}
+ .testimonial-text-slider .owl-prev i, .testimonial-text-slider .owl-next i {
+	 left: 0;
+	 right: 0;
+	 top: 50%;
+	 position: absolute;
+	 transform: translateY(-50%);
+}
+ .testimonial-text-slider .owl-next {
+	 left: auto;
+	 right: 0;
+}
+ .case-study-section .case-study-slider .owl-dot span {
+	 background-color: #edbabe;
+}
+ .case-study-section .case-study-slider .owl-dot.active span {
+	 background-color: #da7782;
+}
+ .testimonial-style-four .testimonial-slider-wrapper .owl-prev, .testimonial-style-four .testimonial-slider-wrapper .owl-next {
+	 top: 40%;
+	 left: -70px;
+	 width: 45px;
+	 height: 45px;
+	 display: inherit;
+	 position: absolute;
+	 border-radius: 30px;
+	 font-size: 20px !important;
+	 line-height: 40px !important;
+	 transition: var(--transition);
+	 background: #efbcbe !important;
+	 color: var(--whiteColor) !important;
+}
+ .testimonial-style-four .testimonial-slider-wrapper .owl-prev:hover, .testimonial-style-four .testimonial-slider-wrapper .owl-next:hover {
+	 background: #e47a79 !important;
+}
+ .testimonial-style-four .testimonial-slider-wrapper .owl-next {
+	 left: auto;
+	 right: -70px;
+}
+ .team-section .team-slider .owl-stage-outer {
+	 padding-top: 10px;
+}
+ .team-section .team-slider .owl-dots {
+	 bottom: -30px;
+	 position: relative;
+}
+ .team-section .team-slider .owl-dots .owl-dot span {
+	 width: 10px;
+	 height: 10px;
+	 margin: 0 5px;
+	 border-radius: 10px;
+	 background: #edbbc0 !important;
+}
+ .team-section .team-slider .owl-dots .owl-dot.active span {
+	 background: #de7880 !important;
+}
+/*video-popup*/
+ .video-popup .overlay {
+	 top: 0;
+	 left: 0;
+	 width: 100%;
+	 height: 100%;
+	 z-index: 9991;
+	 position: fixed;
+	 background-color: rgba(0, 0, 0, 0.8);
+}
+ .video-popup .overlay iframe {
+	 width: 700px;
+	 height: 390px;
+}
+ .video-popup .overlay .nsm-content {
+	 top: 50%;
+	 left: 50%;
+	 width: 700px;
+	 height: 390px;
+	 position: absolute;
+	 transform: translate(-50%, -50%);
+	 background-color: var(--whiteColor);
+}
+ .video-popup .nsm-dialog-btn-close {
+	 background-color: transparent;
+	 color: var(--whiteColor);
+	 position: absolute;
+	 border: none;
+	 right: -30px;
+	 top: -30px;
+}
+ @media only screen and (max-width: 767px) {
+	 p {
+		 font-size: 15px;
+	}
+	 .ptb-100 {
+		 padding-top: 50px;
+		 padding-bottom: 50px;
+	}
+	 .pt-100 {
+		 padding-top: 50px;
+	}
+	 .pb-100 {
+		 padding-bottom: 50px;
+	}
+	 .ptb-70 {
+		 padding-top: 20px;
+		 padding-bottom: 20px;
+	}
+	 .pt-70 {
+		 padding-top: 20px;
+	}
+	 .pb-70 {
+		 padding-bottom: 20px;
+	}
+	 .section-title {
+		 text-align: center !important;
+		 margin: 0 auto 40px;
+	}
+	 .section-title span {
+		 font-size: 15px;
+	}
+	 .section-title h2 {
+		 font-size: 25px;
+	}
+	 .testimonial-section .testimonial-slider .owl-prev, .testimonial-section .testimonial-slider .owl-next {
+		 width: 40px;
+		 height: 40px;
+		 font-size: 12px !important;
+		 left: 0;
+		 right: 0;
+		 position: relative;
+		 margin: auto;
+		 margin-left: 3px !important;
+		 margin-right: 3px !important;
+	}
+	 .testimonial-section .testimonial-slider .owl-next {
+		 left: 0;
+		 right: 0;
+	}
+	 .testimonial-style-two .testimonial-slider-area .owl-prev {
+		 left: 0;
+		 top: inherit;
+		 font-size: 14px !important;
+		 width: 40px;
+		 position: relative;
+		 height: 40px;
+		 line-height: 40px !important;
+	}
+	 .testimonial-style-two .testimonial-slider-area .owl-next {
+		 right: 0;
+		 top: inherit;
+		 position: relative;
+		 font-size: 14px !important;
+		 width: 40px;
+		 height: 40px;
+		 line-height: 40px !important;
+	}
+	 .team-section .team-slider .owl-dots {
+		 bottom: 0;
+	}
+	 .pricing-tabs .nav-tabset {
+		 margin-bottom: 30px;
+	}
+	 .pricing-tabs .nav-tabset .nav-tab span {
+		 padding: 12px 20px;
+		 font-size: 14px;
+	}
+	 .software-section .software-text .nav-tabset {
+		 margin-bottom: 0px;
+	}
+	 .software-section .software-text .nav-tabset .nav-tab {
+		 margin-right: 15px;
+		 margin-bottom: 15px;
+	}
+	 .software-section .software-text .nav-tabset .nav-tab span {
+		 font-size: 13px;
+		 border-bottom-width: 1px;
+	}
+	 .testimonial-style-four .testimonial-slider-wrapper .owl-prev, .testimonial-style-four .testimonial-slider-wrapper .owl-next {
+		 top: 0;
+		 left: 0;
+		 display: inline-block;
+		 position: relative;
+		 margin-left: 3px !important;
+		 margin-right: 3px !important;
+	}
+	 .testimonial-style-four .testimonial-slider-wrapper .owl-next {
+		 left: auto;
+		 right: 0;
+	}
+	 .video-popup .overlay iframe {
+		 width: 290px;
+		 height: 180px;
+	}
+	 .video-popup .overlay .nsm-content {
+		 width: 290px;
+		 height: 180px;
+	}
+	 .video-popup .nsm-dialog-btn-close {
+		 right: 0;
+	}
+}
+ @media only screen and (min-width: 768px) and (max-width: 991px) {
+	 p {
+		 font-size: 15px;
+	}
+	 .ptb-100 {
+		 padding-top: 70px;
+		 padding-bottom: 70px;
+	}
+	 .pt-100 {
+		 padding-top: 70px;
+	}
+	 .pb-100 {
+		 padding-bottom: 70px;
+	}
+	 .ptb-70 {
+		 padding-top: 40px;
+		 padding-bottom: 40px;
+	}
+	 .pt-70 {
+		 padding-top: 40px;
+	}
+	 .pb-70 {
+		 padding-bottom: 40px;
+	}
+	 .section-title {
+		 text-align: center !important;
+		 margin: 0 auto 50px;
+	}
+	 .section-title span {
+		 font-size: 15px;
+	}
+	 .section-title h2 {
+		 font-size: 30px;
+		 margin-bottom: 20px;
+	}
+	 .testimonial-style-two .testimonial-slider-area .owl-prev, .testimonial-style-two .testimonial-slider-area .owl-next {
+		 left: 0;
+		 position: relative;
+		 top: 0;
+	}
+	 .testimonial-style-two .testimonial-slider-area .owl-next {
+		 left: 0;
+		 right: 0;
+	}
+	 .testimonial-style-four .testimonial-slider-wrapper .owl-next {
+		 right: 0;
+	}
+	 .testimonial-style-four .testimonial-slider-wrapper .owl-prev {
+		 left: 0;
+	}
+}
+ @media only screen and (min-width: 992px) and (max-width: 1199px) {
+	 .section-title h2 {
+		 font-size: 30px;
+	}
+}
+ 

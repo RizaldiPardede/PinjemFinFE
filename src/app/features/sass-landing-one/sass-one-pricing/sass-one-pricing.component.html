@@ -1,0 +1,58 @@
+<div id="pricing" class="pricing-section price-section-two pt-100 pb-70">
+  <div class="container">
+    <div class="section-title">
+      <span>Plafon</span>
+      <h2>Sesuaikan Pinjaman dengan Kebutuhanmu!</h2>
+      <p>PinjemFin membagi plafon pinjaman menjadi empat kategori — Bronze, Silver, Gold, dan Platinum — agar kamu bisa meminjam sesuai kebutuhan dan kemampuan finansial dengan lebih mudah dan tepat. </p>
+    </div>
+    <div class="pricing-tabs">
+      <ul class="nav-tabset">
+        <!-- Hanya 1 tab -->
+        <li class="nav-tab active" >
+          <span>
+            Plafon
+          </span>
+        </li>
+      </ul>
+      <div class="tabs-container">
+        <div class="pane" id="tab1" >
+          <div class="row justify-content-center">
+          <div class="row justify-content-center">
+  <div 
+    class="col-lg-6 col-md-6"
+    *ngFor="let plafon of plafons"
+  >
+    <div 
+      class="price-card"
+      [ngClass]="{
+        'premium': plafon.name === 'Gold',
+        'platinum': plafon.name === 'Platinum'
+      }"
+    >
+      <img
+        *ngIf="plafon.imageUrl"
+        [src]="plafon.imageUrl"
+        alt="Plafon {{ plafon.name }}"
+        class="img-fluid rounded mb-3"
+      />
+      <p>Plafon {{ plafon.name }}</p>
+      <div class="price-feature">
+        <ul>
+          <li><i class="flaticon-checked"></i> Plafon {{ plafon.amount | currency:'IDR':'symbol':'1.0-0' }}</li>
+          <li><i class="flaticon-checked"></i> Bunga {{ plafon.bunga }}</li>
+        </ul>
+      </div>
+      <div class="price-btn">
+        <a routerLink=".">Get Started</a>
+      </div>
+    </div>
+  </div>
+</div>
+  
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

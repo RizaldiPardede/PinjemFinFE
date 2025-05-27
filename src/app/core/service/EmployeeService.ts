@@ -101,16 +101,25 @@ export class EmployeeService {
     return this.http.post(url, body, { headers });  // Sending POST request with token in headers
   }
 
-  DisbursePengajuan(id_pengajuan: string,disburse: disburserequest): Observable<any> {
+  // DisbursePengajuan(id_pengajuan: string,disburse: disburserequest): Observable<any> {
+  //   const headers = this.getAuthHeaders();
+
+  //   const url = `${this.apiUrl}/disbursement`;
+  //   const url2 = `${environment.apiUrl}peminjaman/AddPeminjaman`;
+  //   const body = { id_pengajuan }; // Your API route for recommendation
+  //    // Request body containing the ID
+  //    return this.http.post(url, body, { headers }).pipe(
+  //     switchMap(() => this.http.post(url2, disburse, { headers }))
+  //   );  // Sending POST request with token in headers
+  // }
+
+  DisbursePengajuan(id_pengajuan: string,note: string): Observable<any> {
     const headers = this.getAuthHeaders();
 
     const url = `${this.apiUrl}/disbursement`;
-    const url2 = `${environment.apiUrl}peminjaman/AddPeminjaman`;
-    const body = { id_pengajuan }; // Your API route for recommendation
-     // Request body containing the ID
-     return this.http.post(url, body, { headers }).pipe(
-      switchMap(() => this.http.post(url2, disburse, { headers }))
-    );  // Sending POST request with token in headers
+    const body = { id_pengajuan,note };  // Request body containing the ID
+    
+    return this.http.post(url, body, { headers }); 
   }
 
 
@@ -168,5 +177,14 @@ getNote(id_pengajuan: string): Observable<any> {
 
   return this.http.post<any>(`${this.apiUrl}/getNote`, body, { headers });
 }
+
+  rejectPengajuan(id_pengajuan: string,note: string): Observable<any> {
+      const headers = this.getAuthHeaders();
+
+      const url = `${this.apiUrl}/reject`;
+      const body = { id_pengajuan,note };  // Request body containing the ID
+      
+      return this.http.post(url, body, { headers }); 
+    }
   
 }

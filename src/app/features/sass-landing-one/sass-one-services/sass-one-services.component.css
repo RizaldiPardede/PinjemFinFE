@@ -1,0 +1,119 @@
+.service-section {
+	 position: relative;
+}
+ .service-section .section-title span {
+	 color: #2CB88E;
+	 margin-bottom: 10px;
+}
+ .service-section::before {
+	 background-size: cover;
+	 position: absolute;
+	 height: 250px;
+	 width: 250px;
+	 content: '';
+	 right: 0;
+	 top: 0;
+	 background-image: url(../../../../../public/img/map-two.png);
+	 background-position: center center;
+}
+ .service-section .service-card {
+	 box-shadow: 0 5px 40px 0 rgba(0, 0, 0, 0.11) !important;
+	 transition: var(--transition);
+	 background: var(--whiteColor);
+	 border-radius: 20px 0 20px 0;
+	 padding: 60px 24px 45px;
+	 margin-bottom: 30px;
+	 text-align: center;
+}
+ .service-section .service-card:hover {
+	 background: #0060D6;
+}
+ .service-section .service-card:hover i, .service-section .service-card:hover p, .service-section .service-card:hover h3 {
+	 color: var(--whiteColor) !important;
+}
+ .service-section .service-card:hover i::after {
+	 background: #E0EAF6 !important;
+}	
+ .service-section .service-card i {
+	 transition: var(--transition);
+	 display: inline-block;
+	 margin-bottom: 40px;
+	 position: relative;
+	 font-size: 40px;
+	 line-height: 1;
+	 z-index: 0;
+}
+ .service-section .service-card i::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70px;
+	height: 70px;
+	z-index: -1;
+	clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+	transition: var(--transition);
+}
+ .service-section .service-card.service-card-one i {
+	 color: #8b51e8;
+}
+ .service-section .service-card.service-card-one i::after {
+	 background: #e1d3f8;
+}
+ .service-section .service-card.service-card-two i {
+	 color: #187b9a;
+}
+ .service-section .service-card.service-card-two i::after {
+	 background: #44b9ef;
+}
+ .service-section .service-card.service-card-three i {
+	 color: #cb4873;
+}
+ .service-section .service-card.service-card-three i::after {
+	 background: #f8d3d3;
+}
+ .service-section .service-card.service-card-four i {
+	 color: #eba624;
+}
+ .service-section .service-card.service-card-four i::after {
+	 background: #f9e7c5;
+}
+ .service-section .service-card.service-card-five i {
+	 color: #069fe9;
+}
+ .service-section .service-card.service-card-five i::after {
+	 background: #c1e5f9;
+}
+ .service-section .service-card.service-card-six i {
+	 color: #ef3dbb;
+}
+ .service-section .service-card.service-card-six i::after {
+	 background: #fbceee;
+}
+ .service-section .service-card h3 {
+	 margin-bottom: 15px;
+	 transition: var(--transition);
+	 font-size: 22px;
+	 font-weight: 600;
+}
+ .service-section .service-card p {
+	 margin-bottom: 0;
+	 transition: var(--transition);
+}
+ @media only screen and (max-width: 767px) {
+	 .service-section::before {
+		 display: none;
+	}
+	 .service-section .service-card {
+		 padding: 50px 5px 30px;
+	}
+	 .service-section .service-card i {
+		 margin-bottom: 30px;
+	}
+	 .service-section .service-card h3 {
+		 margin-bottom: 13px;
+		 font-size: 18px;
+	}
+}
+ 

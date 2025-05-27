@@ -131,6 +131,7 @@
                   <tr>
                     <th>Nama Employee</th>
                     <th>Jabatan</th>
+                    <th>Status</th>
                     <th>Note</th>
                   </tr>
                 </thead>
@@ -138,6 +139,7 @@
                   <tr *ngFor="let note of noteSebelumnya">
                     <td>{{ note.nama }}</td>
                     <td>{{ note.nama_role }}</td>
+                    <td>{{ note.status }}</td>
                     <td>{{ note.note }}</td>
                   </tr>
                 </tbody>

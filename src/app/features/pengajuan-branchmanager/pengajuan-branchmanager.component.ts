@@ -29,7 +29,7 @@ export class PengajuanBranchmanagerComponent {
   
     modal: Modal | null = null;
     confirmModal: Modal | null = null;
-  
+    confirmRejectModal: Modal | null = null;
     isBrowser: boolean;
     currentSlide: number = 1;
   
@@ -70,6 +70,11 @@ export class PengajuanBranchmanagerComponent {
           if (confirmModalEl) {
             this.confirmModal = new Modal(confirmModalEl);
           }
+
+          const confirmRejectModalEl = document.getElementById('confirmRejectModal');
+          if (confirmRejectModalEl) {
+          this.confirmRejectModal = new Modal(confirmRejectModalEl);
+      }
         }).catch(err => console.error('Error importing Bootstrap Modal:', err));
       }
     }
@@ -183,6 +188,40 @@ export class PengajuanBranchmanagerComponent {
         });
       } else {
         this.hideConfirmModal();
+      }
+    }
+
+    tolakPengajuan(id_pengajuan: string): void {
+      console.log('Tombol Tolak diklik, menampilkan konfirmasi tolak.');
+      this.selectedPengajuan = this.pengajuanList.find(p => p?.id_pengajuan?.id_pengajuan === id_pengajuan);
+
+      if (!this.selectedPengajuan) {
+        console.error('Pengajuan tidak ditemukan.');
+        return;
+      }
+
+      if (this.confirmRejectModal) {
+        this.confirmRejectModal.show();
+      }
+    }
+
+    confirmRejection(isConfirmed: boolean): void {
+      if (isConfirmed && this.selectedPengajuan) {
+        const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+
+        this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+          next: (response) => {
+            console.log('Penolakan berhasil:', response);
+            this.confirmRejectModal?.hide();
+            this.modal?.hide();
+            this.loadPengajuanMarketing();
+          },
+          error: (error) => {
+            console.error('Gagal menolak pengajuan:', error);
+          }
+        });
+      } else {
+        this.confirmRejectModal?.hide();
       }
     }
   

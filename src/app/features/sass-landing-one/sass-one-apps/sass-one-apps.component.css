@@ -1,0 +1,191 @@
+.our-apps {
+	 position: relative;
+}
+ .our-apps .our-apps-img {
+	 position: relative;
+	 z-index: 0;
+}
+ .our-apps .our-apps-img::before {
+	 bottom: 0;
+	 left: -84px;
+	 z-index: -1;
+	 content: '';
+	 width: 385px;
+	 height: 300px;
+	 position: absolute;
+	 background-image: url(../../../../../public/img/shape/pattern-two.png);
+	 background-position: center center;
+	 background-size: cover;
+}
+ .our-apps .our-apps-img img {
+	 border-radius: 30px;
+}
+ .our-apps .our-apps-text .section-title {
+	 margin: 0 0 30px;
+}
+ .our-apps .our-apps-text p {
+	 margin-bottom: 40px;
+}
+ .our-apps .our-apps-text .our-apps-btn a {
+	 color: #0f2137;
+	 display: inline-block;
+	 padding: 0 30px 20px;
+	 line-height: 1;
+	 border-radius: 50px;
+	 margin-right: 25px;
+	 position: relative;
+	 z-index: 0;
+	 box-shadow: 0px 0px 14px rgba(0, 0, 0, 0.15) !important;
+	 overflow: hidden;
+}
+ .our-apps .our-apps-text .our-apps-btn a::before {
+	 position: absolute;
+	 content: '';
+	 background: linear-gradient(0deg, #005FDF 0%, #0060D6 100%);
+	 width: 0;
+	 height: 100%;
+	 top: 0;
+	 left: 0;
+	 bottom: 0;
+	 border-radius: 50px;
+	 z-index: -1;
+	 transition: var(--transition);
+}
+ .our-apps .our-apps-text .our-apps-btn a i {
+	 top: 23px;
+	 position: relative;
+	 left: -5px;
+	 font-size: 25px;
+	 transition: var(--transition);
+}
+ .our-apps .our-apps-text .our-apps-btn a p {
+	 margin: 0 0 15px;
+	 padding-left: 30px;
+	 font-size: 14px;
+	 line-height: 0;
+	 transition: var(--transition);
+}
+ .our-apps .our-apps-text .our-apps-btn a h5 {
+	 margin: 0;
+	 padding-left: 30px;
+	 font-size: 16px;
+	 font-weight: 600;
+	 line-height: 1;
+	 transition: var(--transition);
+}
+ .our-apps .our-apps-text .our-apps-btn a:hover::before {
+	 width: 100%;
+}
+ .our-apps .our-apps-text .our-apps-btn a:hover h5, .our-apps .our-apps-text .our-apps-btn a:hover i, .our-apps .our-apps-text .our-apps-btn a:hover p {
+	 color: var(--whiteColor);
+}
+ .our-apps .our-apps-text .our-apps-btn .active::before {
+	 width: 100%;
+}
+ .our-apps .our-apps-text .our-apps-btn .active:hover::before {
+	 width: 0;
+}
+ .our-apps .our-apps-text .our-apps-btn .active:hover h5, .our-apps .our-apps-text .our-apps-btn .active:hover i, .our-apps .our-apps-text .our-apps-btn .active:hover p {
+	 color: #0f2137;
+}
+ .our-apps .our-apps-text .our-apps-btn .active h5, .our-apps .our-apps-text .our-apps-btn .active i, .our-apps .our-apps-text .our-apps-btn .active p {
+	 color: var(--whiteColor);
+}
+ .our-apps .apps-shape img {
+	 position: absolute;
+	 animation: translateY 5s infinite linear;
+}
+ .our-apps .apps-shape :nth-child(1) {
+	 top: 0;
+	 left: 40px;
+}
+ .our-apps .apps-shape :nth-child(2) {
+	 top: -80px;
+	 left: 600px;
+}
+ .our-apps .apps-shape :nth-child(3) {
+	 top: -80px;
+	 right: 230px;
+}
+ .our-apps .apps-shape :nth-child(4) {
+	 bottom: 60px;
+	 right: 100px;
+}
+ .our-apps .apps-shape :nth-child(5) {
+	 top: 0;
+	 right: 0;
+	 max-width: 200px;
+}
+ @media only screen and (max-width: 767px) {
+	 .our-apps .apps-shape {
+		 display: none;
+	}
+	 .our-apps .our-apps-img {
+		 left: 0;
+		 right: 0;
+		 max-width: 250px;
+		 margin: 0 auto 30px;
+	}
+	 .our-apps .our-apps-img::before {
+		 display: none;
+	}
+	 .our-apps .our-apps-img img {
+		 width: 100%;
+	}
+	 .our-apps .our-apps-text {
+		 text-align: center;
+	}
+	 .our-apps .our-apps-text .our-apps-btn {
+		 text-align: center;
+	}
+	 .our-apps .our-apps-text .our-apps-btn a {
+		 width: 200px;
+		 margin: 0 10px;
+		 padding: 0 10px 10px;
+	}
+	 .our-apps .our-apps-text .our-apps-btn a p {
+		 top: -5px;
+		 font-size: 12px;
+		 position: relative;
+	}
+	 .our-apps .our-apps-text .our-apps-btn a i {
+		 left: -60px;
+		 top: 15px;
+	}
+	 .our-apps .our-apps-text .our-apps-btn a h5 {
+		 top: -5px;
+		 font-size: 14px;
+		 position: relative;
+	}
+}
+ @media only screen and (min-width: 768px) and (max-width: 991px) {
+	 .our-apps .our-apps-text {
+		 text-align: center;
+	}
+	 .our-apps .our-apps-text .section-title {
+		 margin: 0 auto 30px;
+	}
+	 .our-apps .our-apps-text .our-apps-btn a i {
+		 left: -65px;
+	}
+	 .our-apps .our-apps-img {
+		 margin: 0 auto 30px;
+		 position: relative;
+		 max-width: 300px;
+		 z-index: 0;
+		 right: 0;
+		 left: 0;
+	}
+	 .our-apps .our-apps-img img {
+		 width: 100%;
+	}
+	 .our-apps .apps-shape {
+		 display: none;
+	}
+}
+ @media only screen and (min-width: 992px) and (max-width: 1199px) {
+	 .our-apps .apps-shape {
+		 display: none;
+	}
+}
+ 

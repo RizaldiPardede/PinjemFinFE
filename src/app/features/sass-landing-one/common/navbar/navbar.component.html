@@ -1,0 +1,37 @@
+<nav
+    class="navbar navbar-expand-lg navbar-light bg-light"
+    [class.active]="classApplied"
+    [ngClass]="{'sticky': isSticky}"
+>
+    <div class="container">
+        <a class="navbar-brand" routerLink="/">
+            <img src="img/logo.png" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" (click)="toggleClass()">
+            <span class="burger-menu">
+                <span class="top-bar"></span>
+                <span class="middle-bar"></span>
+                <span class="bottom-bar"></span>
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><span class="nav-link" (click)="onClick('home')">Home</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="onClick('services')">Services</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="onClick('about')">About Us</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="onClick('pricing')">Plafon</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="onClick('testimonials')">Testimoni</span></li>
+            </ul>
+            <ul class="navbar-nav ms-auto for-responsive">
+                <li class="nav-item"><span class="nav-link" (click)="toggleClass(); onClick('home')">Home</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="toggleClass(); onClick('services')">Services</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="toggleClass(); onClick('about')">About Us</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="toggleClass(); onClick('pricing')">Plafon</span></li>
+                <li class="nav-item"><span class="nav-link" (click)="toggleClass(); onClick('testimonials')">Testimoni</span></li>
+            </ul>
+            <div class="navbar-btn">
+               <a (click)="onClick('sass-one-apps')" href="javascript:void(0)">Download Now</a>
+            </div>
+        </div>
+    </div>
+</nav>

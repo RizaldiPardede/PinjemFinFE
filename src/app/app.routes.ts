@@ -13,13 +13,13 @@ import {PengajuanListComponent} from './features/pengajuan-list/pengajuan-list.c
 import {UpdatePasswordComponent} from './features/update-password/update-password.component';
 import {ManajemenCustomerComponent} from './features/manajemen-customer/manajemen-customer.component';
 import {ManajemenPlafonComponent} from './features/manajemen-plafon/manajemen-plafon.component';
+import {SassLandingOneComponent} from './features/sass-landing-one/sass-landing-one.component';
 import { featureGuard } from './guards/feature.guard';
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'landingpage', pathMatch: 'full' },
   { path: 'login', loadComponent: () => LoginEmployeeComponent },
-  
   { path: 'updatepassword', loadComponent: () => UpdatePasswordComponent },
-  
+  { path: 'landingpage', loadComponent: () => SassLandingOneComponent },
   {
     path: 'dashboard',
     loadComponent: () => DashboardComponent,

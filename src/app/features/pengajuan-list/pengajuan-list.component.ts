@@ -13,11 +13,12 @@ export class PengajuanListComponent implements OnInit {
   pengajuans: any[] = [];
   isLoading: boolean = true;
   selectedPengajuan: any = null;
+  noteSebelumnya:any[] = [];
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employeeService.getPengajuanEmployeeMarketing().subscribe({
+    this.employeeService.getPengajuanEmployee().subscribe({
       next: (data) => {
         this.pengajuans = data;
         this.isLoading = false;
@@ -31,6 +32,22 @@ export class PengajuanListComponent implements OnInit {
 
   openDetailModal(pengajuan: any): void {
     this.selectedPengajuan = pengajuan;
+    const idPengajuan = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+      if (idPengajuan) {
+        this.employeeService.getNote(idPengajuan).subscribe({
+          next: (response) => {
+            // Pastikan response berbentuk array, kalau tidak, sesuaikan parsing-nya
+            this.noteSebelumnya = Array.isArray(response) ? response : [];
+          },
+          error: (error) => {
+            console.error('Error saat ambil note sebelumnya:', error);
+            this.noteSebelumnya = [];
+          }
+        });
+      } else {
+        console.warn('id_pengajuan tidak ditemukan pada pengajuan');
+        this.noteSebelumnya = [];
+      }
 
     // Bootstrap 5 modal show
     const modalElement = document.getElementById('detailModal');

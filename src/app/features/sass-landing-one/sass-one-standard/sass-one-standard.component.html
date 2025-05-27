@@ -1,0 +1,68 @@
+<div class="standard-section ptb-100">
+  <div class="container">
+    <div class="row">
+      <!-- Form Input -->
+      <div class="col-lg-6">
+        <div class="standard-text">
+          <div class="section-title text-start">
+            <span>Simulasi Peminjaman</span>
+            <h2>Hitung Pinjaman Anda</h2>
+          </div>
+          <form (ngSubmit)="simulateLoan()" #loanForm="ngForm">
+            <div class="mb-3">
+              <label for="amount" class="form-label">Jumlah Pinjaman (Rp)</label>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                class="form-control"
+                [(ngModel)]="amount"
+                required
+                min="100000"
+                max="1000000" />
+                <small class="text-muted">Maksimum Rp 1.000.000</small>
+            </div>
+            <div class="mb-3">
+              <label for="tenor" class="form-label">Tenor (bulan)</label>
+              <input
+                type="number"
+                id="tenor"
+                name="tenor"
+                class="form-control"
+                [(ngModel)]="tenor"
+                required
+                min="1"
+                max="12" />
+                <small class="text-muted">Maksimum 12 bulan</small>
+            </div>
+            <div class="standard-btn">
+              <button type="submit" class="btn btn-primary" [disabled]="!loanForm.form.valid">
+                Hitung Simulasi
+              </button>
+            </div>
+          </form>
+
+          <div class="mt-4" *ngIf="calculated">
+            <h5>Hasil Simulasi</h5>
+            <p><strong>Jumlah Pinjaman:</strong> Rp {{ amount | number:'1.0-0' }}</p>
+            <p><strong>Tenor:</strong> {{ tenor }} bulan</p>
+            <p><strong>Bunga (5% per tahun):</strong> Rp {{ interest | number:'1.0-0' }}</p>
+            <p><strong>Angsuran per bulan:</strong> Rp {{ installment | number:'1.0-0' }}</p>
+            <p><strong>Total Pembayaran:</strong> Rp {{ totalPayment | number:'1.0-0' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gambar -->
+      <div class="col-lg-6">
+        <div class="standard-img">
+          <img src="../../../../assets/image/card_default.png" alt="laptop" />
+        </div>
+      </div>
+    </div>
+
+    <div class="standard-shape">
+      <img src="../../../../assets/image/card_bronze.png" alt="shape" />
+    </div>
+  </div>
+</div>

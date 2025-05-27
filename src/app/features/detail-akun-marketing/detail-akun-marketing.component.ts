@@ -13,8 +13,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class DetailAkunMarketingComponent implements OnInit {
   employee: any;
+  oldPassword: string = '';
   newPassword: string = '';
-  nip: string = ''; // Menyimpan NIP
+  confirmNewPassword: string = '';
+  nip: string='';
 
   constructor(
     private employeeService: EmployeeService,
@@ -41,9 +43,8 @@ export class DetailAkunMarketingComponent implements OnInit {
 
   // Fungsi untuk update password
   onUpdatePassword(): void {
-    console.log('NIP:', this.nip);
-    console.log('New Password:', this.newPassword);
-    this.employeeService.updatePassword(this.nip, this.newPassword).subscribe({
+  
+    this.employeeService.ubahPassword({oldPassword: this.oldPassword,newPassword: this.newPassword}).subscribe({
       next: (data) => {
         console.log('Password successfully updated:', data);
       },
