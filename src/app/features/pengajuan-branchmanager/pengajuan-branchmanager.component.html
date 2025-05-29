@@ -3,7 +3,7 @@
 
 
 
-<div class="container mt-4">
+<div *appHasFeature="'feature_getPengajuanBM'" class="container mt-4">
   <h2 class="mb-4 text-center fw-semibold">Data Pengajuan Nasabah</h2>
 
   <table  class="table table-striped">
@@ -112,10 +112,10 @@
 
           <ul class="nav nav-tabs mt-3" role="tablist">
             <li class="nav-item" role="presentation">
-              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#noteNow" type="button" role="tab" aria-selected="true">Note Saat Ini</button>
+              <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#noteNow" type="button" role="tab" aria-selected="true">Note Anda</button>
             </li>
             <li class="nav-item" role="presentation">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#notePrev" type="button" role="tab" aria-selected="false">Note Sebelumnya</button>
+              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#notePrev" type="button" role="tab" aria-selected="false">Note Bucket Sebelumnya</button>
             </li>
           </ul>
           <div class="tab-content border rounded p-2">
@@ -123,7 +123,7 @@
               <textarea class="form-control" rows="3" [(ngModel)]="noteBaru" placeholder="Tulis catatan..."></textarea>
             </div>
 
-            <div class="tab-pane fade" id="notePrev" role="tabpanel">
+            <div *appHasFeature="'feature_getNote'" class="tab-pane fade" id="notePrev" role="tabpanel">
               <p *ngIf="!noteSebelumnya?.length" class="text-muted">Belum ada catatan sebelumnya.</p>
 
               <table *ngIf="noteSebelumnya?.length" class="table table-striped table-bordered">
@@ -194,13 +194,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Apakah Anda yakin ingin merekomendasikan pengajuan ini?</p>
+        <p>Apakah Anda yakin ingin menyetujui pengajuan ini?</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-sm text-white" style="background-color: #00ffb3;" (click)="confirmRecommendation(true)">
-          Ya, Recommend
+        <button *appHasFeature="'feature_approveBM'" class="btn btn-sm text-white" style="background-color: #00ffb3;" (click)="confirmRecommendation(true)">
+          Ya, Approve
         </button>
-        <button class="btn btn-sm text-white" style="background-color: red;" (click)="confirmRecommendation(false)">
+        <button *appHasFeature="'feature_reject'" class="btn btn-sm text-white" style="background-color: red;" (click)="confirmRecommendation(false)">
           Tidak, Batal
         </button>
       </div>

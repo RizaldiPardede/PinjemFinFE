@@ -2,7 +2,7 @@
   <h2 class="mb-4">Manajemen Cabang</h2>
 
   <!-- Form Tambah / Edit -->
-  <div class="card mb-4">
+  <div *appHasFeature="'feature_createCabang'" class="card mb-4">
     <div class="card-header">
       {{ selectedBranch ? 'Edit Cabang' : 'Tambah Cabang Baru' }}
     </div>
@@ -85,7 +85,7 @@
   </div>
 
   <!-- Daftar Cabang -->
-  <div class="card">
+  <div *appHasFeature="'feature_getAllCabang'" class="card">
     <div class="card-header">Daftar Cabang</div>
     <div class="card-body p-0">
       <!-- Wrapper khusus scroll -->
@@ -107,7 +107,7 @@
               <td>{{ branch.latitude_branch }}</td>
               <td>{{ branch.longitude_branch }}</td>
               <td>
-                <button class="btn btn-sm btn-warning me-2" (click)="editBranch(branch)">
+                <button *appHasFeature="'feature_updateCabang'" class="btn btn-sm btn-warning me-2" (click)="editBranch(branch)">
                   Edit
                 </button>
               </td>

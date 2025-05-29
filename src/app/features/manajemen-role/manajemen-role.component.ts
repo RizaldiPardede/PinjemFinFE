@@ -5,11 +5,12 @@ import { RoleService } from '../../core/service/RoleService';
 import { FeatureService } from '../../core/service/FeatureService';
 import { RoleFeatureService } from '../../core/service/RoleFeatureService';
 import { forkJoin } from 'rxjs';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
 
 @Component({
   selector: 'app-manajemen-role',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,HasFeatureDirective],
   templateUrl: './manajemen-role.component.html',
   styleUrls: ['./manajemen-role.component.css']
 })
@@ -149,4 +150,11 @@ export class ManajemenRoleComponent implements OnInit {
       }
     });
   }
+  getFeatureColumns(columnsCount: number = 4): any[][] {
+  const columns: any[][] = Array.from({ length: columnsCount }, () => []);
+  this.features.forEach((feature: any, index: number) => {
+    columns[index % columnsCount].push(feature);
+  });
+  return columns;
+}
 }

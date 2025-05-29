@@ -6,6 +6,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { disburserequest } from '../dto/disburserequest';
 import { switchMap } from 'rxjs/operators';
 import { UserEmployeUsersRequest } from '../dto/UserEmployeUsersRequest';
+import { UpdateProfileEmployeeRequest } from '../dto/UpdateProfileEmployeeRequest';
 import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
@@ -79,7 +80,7 @@ export class EmployeeService {
     }
 
     const headers = this.getAuthHeaders();
-    return this.http.get<any>(`${this.apiUrl}/getProfileMarketing`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/getProfileEmployee`, { headers });
   }
 
    // Method to recommend pengajuan with token in header
@@ -186,5 +187,13 @@ getNote(id_pengajuan: string): Observable<any> {
       
       return this.http.post(url, body, { headers }); 
     }
+
+  updateProfile(request: UpdateProfileEmployeeRequest): Observable<any> {
+  return this.http.put(
+    `${this.apiUrl}/updateProfile`,
+    request,
+    { headers: this.getAuthHeaders() }
+  );
+}
   
 }

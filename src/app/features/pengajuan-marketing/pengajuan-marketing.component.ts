@@ -12,14 +12,14 @@ import { Modal } from 'bootstrap';
 import { EmployeeService } from '../../core/service/EmployeeService';
 import { UserCustomerImageService } from '../../core/service/UserCustomerImageService';
 import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
-import { FeatureService } from '../shared/directives/FeatureService';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pengajuan-marketing',
   standalone: true,
   imports: [CommonModule, HttpClientModule, NgxDatatableModule, HasFeatureDirective, FormsModule],
-  providers: [FeatureService],
+  providers: [],
   templateUrl: './pengajuan-marketing.component.html',
   styleUrls: ['./pengajuan-marketing.component.css']
 })
@@ -27,7 +27,7 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
   pengajuanList: any[] = [];
   pengajuanRows: any[] = [];
   selectedPengajuan: any = null;
-
+  confirmRejectModal: Modal | null = null;
   modal: Modal | null = null;
   confirmModal: Modal | null = null;
 
@@ -43,7 +43,7 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private featureService: FeatureService,
+   
     private userCustomerImageService:UserCustomerImageService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
@@ -55,24 +55,28 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
       this.loadPengajuanMarketing();
     }
 
-    const userFeatures = this.featureService.getFeatures();
-    console.log('User Features:', userFeatures);
+    
   }
 
   ngAfterViewInit(): void {
     if (this.isBrowser) {
-      import('bootstrap').then(({ Modal }) => {
-        const reviewModalEl = document.getElementById('reviewModal');
-        if (reviewModalEl) {
-          this.modal = new Modal(reviewModalEl);
-        }
+        import('bootstrap').then(({ Modal }) => {
+          const reviewModalEl = document.getElementById('reviewModal');
+          if (reviewModalEl) {
+            this.modal = new Modal(reviewModalEl);
+          }
+  
+          const confirmModalEl = document.getElementById('confirmModal');
+          if (confirmModalEl) {
+            this.confirmModal = new Modal(confirmModalEl);
+          }
 
-        const confirmModalEl = document.getElementById('confirmModal');
-        if (confirmModalEl) {
-          this.confirmModal = new Modal(confirmModalEl);
-        }
-      }).catch(err => console.error('Error importing Bootstrap Modal:', err));
-    }
+          const confirmRejectModalEl = document.getElementById('confirmRejectModal');
+          if (confirmRejectModalEl) {
+          this.confirmRejectModal = new Modal(confirmRejectModalEl);
+      }
+        }).catch(err => console.error('Error importing Bootstrap Modal:', err));
+      }
   }
 
   private loadPengajuanMarketing(): void {
@@ -186,6 +190,40 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
       this.hideConfirmModal();
     }
   }
+
+  tolakPengajuan(id_pengajuan: string): void {
+      console.log('Tombol Tolak diklik, menampilkan konfirmasi tolak.');
+      this.selectedPengajuan = this.pengajuanList.find(p => p?.id_pengajuan?.id_pengajuan === id_pengajuan);
+
+      if (!this.selectedPengajuan) {
+        console.error('Pengajuan tidak ditemukan.');
+        return;
+      }
+
+      if (this.confirmRejectModal) {
+        this.confirmRejectModal.show();
+      }
+    }
+
+    confirmRejection(isConfirmed: boolean): void {
+      if (isConfirmed && this.selectedPengajuan) {
+        const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+
+        this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+          next: (response) => {
+            console.log('Penolakan berhasil:', response);
+            this.confirmRejectModal?.hide();
+            this.modal?.hide();
+            this.loadPengajuanMarketing();
+          },
+          error: (error) => {
+            console.error('Gagal menolak pengajuan:', error);
+          }
+        });
+      } else {
+        this.confirmRejectModal?.hide();
+      }
+    }
 
   private hideConfirmModal(): void {
     if (this.confirmModal) {

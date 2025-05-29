@@ -4,10 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ChatService  } from '../../core/component_service/ChatService';
 import { FormsModule } from '@angular/forms';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
 
 @Component({
   selector: 'app-detail-akun-marketing',
-  imports: [CommonModule, HttpClientModule,FormsModule  ],
+  imports: [CommonModule, HttpClientModule,FormsModule ,HasFeatureDirective ],
   templateUrl: './detail-akun-marketing.component.html',
   styleUrl: './detail-akun-marketing.component.css'
 })
@@ -33,7 +34,7 @@ export class DetailAkunMarketingComponent implements OnInit {
       next: (data) => {
         this.employee = data;
         console.log('Data Profile:', this.employee);
-        this.nip = this.employee?.nip; // Set nip dari data profile
+        this.nip = this.employee?.nip; 
       },
       error: (err) => {
         console.error('Gagal memuat profile:', err);

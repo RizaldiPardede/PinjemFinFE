@@ -1,97 +1,104 @@
 <!-- Sidebar -->
 <div class="sidebar shadow">
-  <a class="nav-link text-white ms-3 fw-bold fs-5" routerLink="/dashboard/detailakunmarketing">Dashboard</a>
+  <a class="nav-link text-white ms-3 fw-bold fs-5" routerLink="/dashboard/detailakunmarketing">
+    <i class="bi bi-speedometer2 me-2"></i>Dashboard
+  </a>
   <ul class="nav flex-column px-3 pt-4">
     <li class="nav-item">
-      <a class="nav-link text-white" routerLink="/dashboard/detailakunmarketing" routerLinkActive="active-menu"
-        [routerLinkActiveOptions]="{ exact: true }">Detail Akun</a>
+      <a class="nav-link text-white" routerLink="/dashboard/detailakunmarketing" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-person-circle me-2"></i>Detail Akun
+      </a>
     </li>
 
     <!-- Marketing menu -->
     <li *appHasFeature="'feature_getPengajuanMarketing'" class="nav-item">
-      <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
-        (click)="toggleSubMenu('submenu1')" [attr.aria-expanded]="isSubMenuOpen['submenu1']"
-        [attr.aria-controls]="'submenu1'">
-        Marketing
+      <button class="nav-link text-white d-flex justify-content-between align-items-center w-100" (click)="toggleSubMenu('submenu1')" [attr.aria-expanded]="isSubMenuOpen['submenu1']" [attr.aria-controls]="'submenu1'">
+        <span><i class="bi bi-megaphone me-2"></i>Marketing</span>
         <i class="bi" [class.bi-chevron-down]="!isSubMenuOpen['submenu1']" [class.bi-chevron-up]="isSubMenuOpen['submenu1']"></i>
       </button>
-
       <ul class="nav flex-column ms-3 collapse" [ngClass]="{ show: isSubMenuOpen['submenu1'] }" id="submenu1">
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/dashboard/pengajuanmarketing" routerLinkActive="active-menu"
-            [routerLinkActiveOptions]="{ exact: true }">Pengajuan</a>
+          <a class="nav-link text-white" routerLink="/dashboard/pengajuanmarketing" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-folder-check me-2"></i>Pengajuan
+          </a>
         </li>
       </ul>
     </li>
 
     <!-- Branch manager menu -->
     <li *appHasFeature="'feature_getPengajuanBM'" class="nav-item">
-      <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
-        (click)="toggleSubMenu('submenu2')" [attr.aria-expanded]="isSubMenuOpen['submenu2']"
-        [attr.aria-controls]="'submenu2'">
-        Branch Manager
+      <button class="nav-link text-white d-flex justify-content-between align-items-center w-100" (click)="toggleSubMenu('submenu2')" [attr.aria-expanded]="isSubMenuOpen['submenu2']" [attr.aria-controls]="'submenu2'">
+        <span><i class="bi bi-diagram-3 me-2"></i>Branch Manager</span>
         <i class="bi" [class.bi-chevron-down]="!isSubMenuOpen['submenu2']" [class.bi-chevron-up]="isSubMenuOpen['submenu2']"></i>
       </button>
-
       <ul class="nav flex-column ms-3 collapse" [ngClass]="{ show: isSubMenuOpen['submenu2'] }" id="submenu2">
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/dashboard/pengajuanbranchmanager" routerLinkActive="active-menu"
-            [routerLinkActiveOptions]="{ exact: true }">Pengajuan</a>
+          <a class="nav-link text-white" routerLink="/dashboard/pengajuanbranchmanager" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-folder-check me-2"></i>Pengajuan
+          </a>
         </li>
       </ul>
     </li>
 
     <!-- Back office menu -->
     <li *appHasFeature="'feature_getPengajuanBackOffice'" class="nav-item">
-      <button class="nav-link text-white d-flex justify-content-between align-items-center w-100"
-        (click)="toggleSubMenu('submenu3')" [attr.aria-expanded]="isSubMenuOpen['submenu3']"
-        [attr.aria-controls]="'submenu3'">
-        Back office
+      <button class="nav-link text-white d-flex justify-content-between align-items-center w-100" (click)="toggleSubMenu('submenu3')" [attr.aria-expanded]="isSubMenuOpen['submenu3']" [attr.aria-controls]="'submenu3'">
+        <span><i class="bi bi-building me-2"></i>Back Office</span>
         <i class="bi" [class.bi-chevron-down]="!isSubMenuOpen['submenu3']" [class.bi-chevron-up]="isSubMenuOpen['submenu3']"></i>
       </button>
-
       <ul class="nav flex-column ms-3 collapse" [ngClass]="{ show: isSubMenuOpen['submenu3'] }" id="submenu3">
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/dashboard/pengajuanbackoffice" routerLinkActive="active-menu"
-            [routerLinkActiveOptions]="{ exact: true }">Pengajuan</a>
+          <a class="nav-link text-white" routerLink="/dashboard/pengajuanbackoffice" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+            <i class="bi bi-folder-check me-2"></i>Pengajuan
+          </a>
         </li>
       </ul>
     </li>
-    <!--manajemen branch-->
-  <li *appHasFeature="'feature_getAllCabang'" class="nav-item">
-    <a class="nav-link text-white" routerLink="/dashboard/manajemenbranch" routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }">Branch</a>
-  </li>
 
-  <!--manajemen user employee-->
-  <li *appHasFeature="'feature_getAllEmployee'" class="nav-item">
-    <a class="nav-link text-white" routerLink="/dashboard/manajemenuseremployee" routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }">Employee</a>
-  </li>
-<!--manajemen Role employee-->
-  <li *appHasFeature="'feature_getAllRole'" class="nav-item">
-    <a class="nav-link text-white" routerLink="/dashboard/manajemenrole" routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }">Role</a>
-  </li>
+    <!-- Manajemen Branch -->
+    <li *appHasFeature="'feature_getAllCabang'" class="nav-item">
+      <a class="nav-link text-white" routerLink="/dashboard/manajemenbranch" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-geo-alt me-2"></i>Branch
+      </a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link text-white" routerLink="/dashboard/pengajuanlist" routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }">History Pengajuan</a>
-  </li>
+    <!-- Manajemen User Employee -->
+    <li *appHasFeature="'feature_getAllEmployee'" class="nav-item">
+      <a class="nav-link text-white" routerLink="/dashboard/manajemenuseremployee" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-people me-2"></i>Employee
+      </a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link text-white" routerLink="/dashboard/manajemencustomer" routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }">Customer</a>
-  </li>
+    <!-- Manajemen Role -->
+    <li *appHasFeature="'feature_getAllRole'" class="nav-item">
+      <a class="nav-link text-white" routerLink="/dashboard/manajemenrole" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-person-badge me-2"></i>Role
+      </a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link text-white" routerLink="/dashboard/manajemenplafon" routerLinkActive="active-menu"
-      [routerLinkActiveOptions]="{ exact: true }">Plafon</a>
-  </li>
+    <!-- History Pengajuan -->
+    <li *appHasFeature="'feature_getPengajuanEmployee'" class="nav-item">
+      <a class="nav-link text-white" routerLink="/dashboard/pengajuanlist" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-clock-history me-2"></i>History Pengajuan
+      </a>
+    </li>
+
+    <!-- Customer -->
+    <li *appHasFeature="'feature_getAllCustomer'" class="nav-item">
+      <a class="nav-link text-white" routerLink="/dashboard/manajemencustomer" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-person-lines-fill me-2"></i>Customer
+      </a>
+    </li>
+
+    <!-- Plafon -->
+    <li *appHasFeature="'feature_getAllPlafon'" class="nav-item">
+      <a class="nav-link text-white" routerLink="/dashboard/manajemenplafon" routerLinkActive="active-menu" [routerLinkActiveOptions]="{ exact: true }">
+        <i class="bi bi-cash-stack me-2"></i>Plafon
+      </a>
+    </li>
   </ul>
-
-  
 </div>
+
 
 
 

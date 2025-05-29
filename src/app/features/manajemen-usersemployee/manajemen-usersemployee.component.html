@@ -1,54 +1,66 @@
 <div class="container mt-4">
   <h2 class="mb-4">Manajemen Employee</h2>
 
-  <!-- Form Create -->
-  <div class="card mb-4">
-    <div class="card-header">Create Employee</div>
+  <!-- Form Create/Edit Employee -->
+  <div *appHasFeature="'feature_createEmployee'"class="card mb-4">
+    <div class="card-header">
+      {{ isEditMode ? 'Edit Employee' : 'Tambah Employee Baru' }}
+    </div>
     <div class="card-body">
-      <form (ngSubmit)="createEmployee()">
+      <form (ngSubmit)="submitForm()">
         <div class="row g-3">
           <div class="col-md-6">
-            <label class="form-label">Nama</label>
+            <label for="nama" class="form-label">Nama</label>
             <input
+              id="nama"
               type="text"
               class="form-control"
               placeholder="Nama"
-              [(ngModel)]="newEmployee.users.nama"
+              [(ngModel)]="currentEmployee.users.nama"
               name="nama"
               required
             />
           </div>
+
           <div class="col-md-6">
-            <label class="form-label">Email</label>
+            <label for="email" class="form-label">Email</label>
             <input
+              id="email"
               type="email"
               class="form-control"
               placeholder="Email"
-              [(ngModel)]="newEmployee.users.email"
+              [(ngModel)]="currentEmployee.users.email"
               name="email"
               required
+              
             />
           </div>
+
           <div class="col-md-6">
-            <label class="form-label">NIP</label>
+            <label for="nip" class="form-label">NIP</label>
             <input
+              id="nip"
               type="number"
               class="form-control"
               placeholder="NIP"
-              [(ngModel)]="newEmployee.nip"
+              [(ngModel)]="currentEmployee.nip"
               name="nip"
               required
+              [readonly]="isEditMode" 
+              title="Email tidak dapat diubah saat edit"
             />
           </div>
+
           <div class="col-md-6">
-            <label class="form-label">Jabatan</label>
+            <label for="jabatan" class="form-label">Jabatan</label>
             <select
+              id="jabatan"
               class="form-select"
-              [(ngModel)]="newEmployee.jabatan"
+              [(ngModel)]="currentEmployee.jabatan"
               name="jabatan"
               required
             >
-              <option selected disabled value="">Pilih Jabatan</option>
+              <option value="" disabled selected>Pilih Jabatan</option>
               <option value="marketing">Marketing</option>
               <option value="branch manager">Branch Manager</option>
               <option value="back office">Back Office</option>
@@ -56,8 +68,9 @@
           </div>
 
           <div class="col-md-6">
-            <label class="form-label">Role</label>
+            <label for="role" class="form-label">Role</label>
             <ng-select
+              id="role"
               [items]="roles"
               bindLabel="nama_role"
               bindValue="id_role"
@@ -65,13 +78,15 @@
               name="role"
               placeholder="Pilih Role"
               [searchable]="true"
+              required
             >
             </ng-select>
           </div>
 
           <div class="col-md-6">
-            <label class="form-label">Branch</label>
+            <label for="branch" class="form-label">Branch</label>
             <ng-select
+              id="branch"
               [items]="branches"
               bindLabel="nama_branch"
               bindValue="id_branch"
@@ -79,13 +94,30 @@
               name="branch"
               placeholder="Pilih Branch"
               [searchable]="true"
+              required
             >
             </ng-select>
           </div>
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">
-          Create Employee
+          {{ isEditMode ? 'Simpan Perubahan' : 'Buat Employee' }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary mt-3 ms-2"
+          (click)="cancelEdit()"
+          *ngIf="isEditMode"
+        >
+          Batal
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary mt-3 ms-2"
+          (click)="resetForm()"
+          *ngIf="!isEditMode"
+        >
+          Reset Form
         </button>
       </form>
     </div>
@@ -102,21 +134,23 @@
     />
   </div>
 
-  <!-- Table Employee -->
+  <!-- Daftar Employee -->
   <div class="card">
     <div class="card-header">Daftar Employee</div>
     <div class="card-body p-0">
       <div style="max-height: 400px; overflow-y: auto;">
         <table class="table table-striped table-hover mb-0">
           <thead class="table-light">
-            <tr style="position: sticky; top: 0; z-index: 2; background-color: #f8f9fa;">
-              <th style="background-color: #f8f9fa;">NIP</th>
-              <th style="background-color: #f8f9fa;">Nama</th>
-              <th style="background-color: #f8f9fa;">Email</th>
-              <th style="background-color: #f8f9fa;">Jabatan</th>
-              <th style="background-color: #f8f9fa;">Branch</th>
-              <th style="background-color: #f8f9fa;">Role</th>
-              <th style="background-color: #f8f9fa;">Aksi</th>
+            <tr
+              style="position: sticky; top: 0; background-color: #f8f9fa; z-index: 2;"
+            >
+              <th>NIP</th>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Jabatan</th>
+              <th>Branch</th>
+              <th>Role</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -128,10 +162,17 @@
               <td>{{ emp.branch?.nama_branch }}</td>
               <td>{{ emp.users?.role?.nama_role }}</td>
               <td>
-                <button class="btn btn-sm btn-warning me-1">
+                <button *appHasFeature="'feature_editEmployee'"
+                  class="btn btn-sm btn-warning me-2"
+                  (click)="openEditForm(emp)"
+                >
                   Edit
                 </button>
-                <button class="btn btn-sm btn-secondary" (click)="resetPassword(emp.users.email)">
+                <button
+                  *appHasFeature="'feature_forgotPassword'"
+                  class="btn btn-sm btn-secondary"
+                  (click)="resetPassword(emp.users.email)"
+                >
                   Reset Password
                 </button>
               </td>

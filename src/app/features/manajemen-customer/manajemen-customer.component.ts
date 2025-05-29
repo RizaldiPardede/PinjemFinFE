@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
 import { EmployeeService } from '../../core/service/EmployeeService';
 import { NgIf, NgFor } from '@angular/common';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
 
 @Component({
   selector: 'app-manajemen-customer',
   standalone: true,
-  imports: [CommonModule, NgChartsModule, NgIf, NgFor],
+  imports: [CommonModule, NgChartsModule, NgIf, NgFor,HasFeatureDirective],
   templateUrl: './manajemen-customer.component.html',
   styleUrls: ['./manajemen-customer.component.css']
 })

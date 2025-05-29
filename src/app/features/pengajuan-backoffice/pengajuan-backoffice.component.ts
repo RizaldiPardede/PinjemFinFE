@@ -12,13 +12,13 @@ import { Modal } from 'bootstrap';
 import { EmployeeService } from '../../core/service/EmployeeService';
 import { UserCustomerImageService } from '../../core/service/UserCustomerImageService';
 import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
-import { FeatureService } from '../shared/directives/FeatureService';
+
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-pengajuan-backoffice',
   standalone: true,
   imports: [CommonModule, HttpClientModule, NgxDatatableModule, HasFeatureDirective, FormsModule],
-  providers: [FeatureService],
+  providers: [],
   templateUrl: './pengajuan-backoffice.component.html',
   styleUrl: './pengajuan-backoffice.component.css'
 })
@@ -29,7 +29,7 @@ export class PengajuanBackofficeComponent {
   
     modal: Modal | null = null;
     confirmModal: Modal | null = null;
-  
+    confirmRejectModal: Modal | null = null;
     isBrowser: boolean;
     currentSlide: number = 1;
   
@@ -42,7 +42,7 @@ export class PengajuanBackofficeComponent {
   
     constructor(
       private employeeService: EmployeeService,
-      private featureService: FeatureService,
+      
       private userCustomerImageService:UserCustomerImageService,
       @Inject(PLATFORM_ID) private platformId: Object
     ) {
@@ -54,8 +54,7 @@ export class PengajuanBackofficeComponent {
         this.loadPengajuanMarketing();
       }
   
-      const userFeatures = this.featureService.getFeatures();
-      console.log('User Features:', userFeatures);
+      
     }
   
     ngAfterViewInit(): void {
@@ -70,6 +69,11 @@ export class PengajuanBackofficeComponent {
           if (confirmModalEl) {
             this.confirmModal = new Modal(confirmModalEl);
           }
+
+          const confirmRejectModalEl = document.getElementById('confirmRejectModal');
+          if (confirmRejectModalEl) {
+          this.confirmRejectModal = new Modal(confirmRejectModalEl);
+      }
         }).catch(err => console.error('Error importing Bootstrap Modal:', err));
       }
     }
@@ -183,6 +187,40 @@ export class PengajuanBackofficeComponent {
         });
       } else {
         this.hideConfirmModal();
+      }
+    }
+
+    tolakPengajuan(id_pengajuan: string): void {
+      console.log('Tombol Tolak diklik, menampilkan konfirmasi tolak.');
+      this.selectedPengajuan = this.pengajuanList.find(p => p?.id_pengajuan?.id_pengajuan === id_pengajuan);
+
+      if (!this.selectedPengajuan) {
+        console.error('Pengajuan tidak ditemukan.');
+        return;
+      }
+
+      if (this.confirmRejectModal) {
+        this.confirmRejectModal.show();
+      }
+    }
+
+    confirmRejection(isConfirmed: boolean): void {
+      if (isConfirmed && this.selectedPengajuan) {
+        const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+
+        this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+          next: (response) => {
+            console.log('Penolakan berhasil:', response);
+            this.confirmRejectModal?.hide();
+            this.modal?.hide();
+            this.loadPengajuanMarketing();
+          },
+          error: (error) => {
+            console.error('Gagal menolak pengajuan:', error);
+          }
+        });
+      } else {
+        this.confirmRejectModal?.hide();
       }
     }
   

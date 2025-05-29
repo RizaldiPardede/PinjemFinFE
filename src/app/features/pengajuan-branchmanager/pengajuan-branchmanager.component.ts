@@ -12,7 +12,7 @@ import { Modal } from 'bootstrap';
 import { EmployeeService } from '../../core/service/EmployeeService';
 import { UserCustomerImageService } from '../../core/service/UserCustomerImageService';
 import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
-import { FeatureService } from '../shared/directives/FeatureService';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -42,7 +42,7 @@ export class PengajuanBranchmanagerComponent {
   
     constructor(
       private employeeService: EmployeeService,
-      private featureService: FeatureService,
+      
       private userCustomerImageService:UserCustomerImageService,
       @Inject(PLATFORM_ID) private platformId: Object
     ) {
@@ -54,8 +54,7 @@ export class PengajuanBranchmanagerComponent {
         this.loadPengajuanMarketing();
       }
   
-      const userFeatures = this.featureService.getFeatures();
-      console.log('User Features:', userFeatures);
+      
     }
   
     ngAfterViewInit(): void {

@@ -30,7 +30,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object,
-    private chatService: ChatService
+    private chatService: ChatService,
+    private featureService: FeatureService,
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +47,9 @@ export class DashboardComponent implements OnInit {
     this.chatService.chatVisibility$.subscribe((visible: boolean) => {
       this.isChatVisible = visible;
     });
+
+    const userFeatures = this.featureService.getFeatures();
+    console.log('User Features:', userFeatures)
   }
 
   toggleSubMenu(key: string) {

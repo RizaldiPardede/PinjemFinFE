@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { catchError, of } from 'rxjs';
 import { PlafonService } from '../../core/service/PlafonService';
 import { Plafon } from '../../core/dto/plafon.model';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
 
 @Component({
   selector: 'app-manajemen-plafon',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,HasFeatureDirective],
   templateUrl: './manajemen-plafon.component.html',
   styleUrl: './manajemen-plafon.component.css'
 })

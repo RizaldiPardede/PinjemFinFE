@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeService } from '../../core/service/EmployeeService';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
+
 declare var bootstrap: any;
 @Component({
   selector: 'app-pengajuan-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,HasFeatureDirective],
   templateUrl: './pengajuan-list.component.html',
   styleUrls: ['./pengajuan-list.component.css']
 })

@@ -10,7 +10,7 @@
           <p class="text-secondary small">{{ employee?.branch?.nama_branch }}</p>
           <div class="d-flex flex-column gap-2 mb-3">
             <button class="btn btn-primary" (click)="openBranchLocation()">📍 Branch Location</button>
-            <button class="btn btn-outline-success" (click)="openChatBox()">💬 Message</button>
+            <button *appHasFeature="'feature_websocket'" class="btn btn-outline-success" (click)="openChatBox()">💬 Message</button>
           </div>
         </div>
       </div>

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BranchService } from '../../core/service/BranchService';
 import { BranchResponse } from '../../core/dto/BranchResponse';
+import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
 
 @Component({
   selector: 'app-manajemen-branch',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,HasFeatureDirective],
   templateUrl: './manajemen-branch.component.html',
   styleUrls: ['./manajemen-branch.component.css']
 })
