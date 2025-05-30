@@ -7,10 +7,6 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'resetpassword/:id',
-    renderMode: RenderMode.Prerender,
-    getPrerenderParams() {
-      return Promise.resolve([]);
-    }
-     // ✅ fix ini
+    renderMode: RenderMode.Server
   },
 ];
