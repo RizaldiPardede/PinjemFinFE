@@ -1,89 +1,118 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import SockJS from 'sockjs-client';
-import * as Stomp from 'stompjs';
+import { Client, IMessage } from '@stomp/stompjs';
 import { Observable } from 'rxjs';
 import { employeWSresponse } from '../dto/employeWSresponse';
 import { environment } from '../../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class WebsocketService {
-  private socket: WebSocket | null = null;
-  private stompClient: any;
-  private employees: employeWSresponse[] = []; // Menyimpan data karyawan
+  private stompClient!: Client;
+  private employees: employeWSresponse[] = [];
 
   constructor(private http: HttpClient) {}
 
-  // Method untuk mengambil semua karyawan
   getAllemployeWSresponse(): Observable<employeWSresponse[]> {
     const token = localStorage.getItem('token');
-    
     if (!token) {
       console.error('Token tidak ditemukan');
-      return new Observable<employeWSresponse[]>(); // Mengembalikan Observable kosong
+      return new Observable<employeWSresponse[]>();
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    
-    return this.http.get<employeWSresponse[]>(`${environment.apiUrl}employee/getAllEmoloyeeNipName`, { headers });
+    return this.http.get<employeWSresponse[]>(
+      `${environment.apiUrl}employee/getAllEmoloyeeNipName`,
+      { headers }
+    );
   }
 
-  // Method untuk menyimpan karyawan
   setEmployees(employees: employeWSresponse[]): void {
     this.employees = employees;
   }
 
-  // Method untuk mendapatkan karyawan yang telah disimpan
   getEmployees(): employeWSresponse[] {
     return this.employees;
   }
 
-  connect(onMessage: (msg: any) => void) {
+  connect(onMessage: (msg: any) => void): void {
     const token = localStorage.getItem('token');
     if (!token) {
       console.error('Token not found in localStorage!');
       return;
     }
 
-    // Panggil API untuk ambil NIP
-    this.http.post<employeWSresponse>(`${environment.apiUrl}employee/getNipFromtoken`, {}, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).subscribe({
-      next: (res: employeWSresponse) => {
-        const nip = res.nip;
-        this.initializeWebSocketConnection(nip, token, onMessage);
-      },
-      error: (err) => {
-        console.error('Gagal mengambil NIP:', err);
-      }
-    });
-  }
-
-  private initializeWebSocketConnection(nip: number, token: string, onMessage: (msg: any) => void) {
-    const socket = new SockJS(`${environment.apiUrl}ws`);
-    this.stompClient = Stomp.over(socket);
-    
-    this.stompClient.connect({ 'Authorization': `Bearer ${token}` }, (frame: any) => {
-      console.log('Connected: ' + frame);
-      this.stompClient.subscribe(`/queue/messages/${nip}`, (message: any) => {
-        onMessage(JSON.parse(message.body));
+    this.http
+      .post<employeWSresponse>(
+        `${environment.apiUrl}employee/getNipFromtoken`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .subscribe({
+        next: (res: employeWSresponse) => {
+          const nip = res.nip;
+          if (!nip) {
+            console.error('NIP tidak ditemukan dalam response');
+            return;
+          }
+          this.initializeWebSocketConnection(nip, token, onMessage);
+        },
+        error: (err) => {
+          console.error('Gagal mengambil NIP:', err);
+        },
       });
-    }, (error: any) => {
-      console.error('WebSocket Error:', error);
-    });
   }
 
-  sendMessage(msg: any) {
+  private initializeWebSocketConnection(
+    nip: number,
+    token: string,
+    onMessage: (msg: any) => void
+  ) {
+    this.stompClient = new Client({
+      webSocketFactory: () => new SockJS(`${environment.apiUrl}ws`),
+      connectHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+      debug: (str) => console.log('[STOMP]', str),
+      reconnectDelay: 5000,
+      onConnect: () => {
+        console.log('WebSocket connected');
+        this.stompClient.subscribe(`/queue/messages/${nip}`, (message: IMessage) => {
+          onMessage(JSON.parse(message.body));
+        });
+      },
+      onStompError: (frame) => {
+        console.error('Broker error:', frame.headers['message']);
+        console.error('Details:', frame.body);
+      },
+    });
+
+    this.stompClient.activate();
+  }
+
+  sendMessage(msg: any): void {
     if (this.stompClient && this.stompClient.connected) {
-      this.stompClient.send('/app/chat/send', {}, JSON.stringify(msg));
+      this.stompClient.publish({
+        destination: '/app/chat/send',
+        body: JSON.stringify(msg),
+      });
     } else {
       console.error('WebSocket is not connected.');
     }
   }
 
+  disconnect(): void {
+    if (this.stompClient && this.stompClient.active) {
+      this.stompClient.deactivate();
+      console.log('WebSocket disconnected');
+    }
+  }
+
   getCurrentUserNip(): number {
-    // Method to get current user NIP from localStorage or another service
-    return 20242831; // Example, replace with actual logic
+    return 20242831; // Placeholder
   }
 }
