@@ -172,23 +172,56 @@ export class PengajuanBranchmanagerComponent {
       }
     }
   
+    // confirmRecommendation(isConfirmed: boolean): void {
+    //   if (isConfirmed && this.selectedPengajuan) {
+    //     const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+    //     this.employeeService.AprovePengajuan(id,this.noteBaru).subscribe({
+    //       next: (response) => {
+    //         console.log('Recommendation successful:', response);
+    //         this.hideConfirmModal();
+    //         this.loadPengajuanMarketing();
+    //       },
+    //       error: (error) => {
+    //         console.error('Error recommending pengajuan:', error);
+    //       }
+    //     });
+    //   } else {
+    //     this.hideConfirmModal();
+    //   }
+    // }
     confirmRecommendation(isConfirmed: boolean): void {
-      if (isConfirmed && this.selectedPengajuan) {
-        const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
-        this.employeeService.AprovePengajuan(id,this.noteBaru).subscribe({
-          next: (response) => {
-            console.log('Recommendation successful:', response);
+  if (isConfirmed && this.selectedPengajuan) {
+    const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+
+    this.employeeService.AprovePengajuan(id, this.noteBaru).subscribe({
+      next: (response) => {
+        switch (response?.message) {
+          case 'Pengajuan berhasil dicairkan':
+            alert('✅ ' + response.message);
             this.hideConfirmModal();
             this.loadPengajuanMarketing();
-          },
-          error: (error) => {
-            console.error('Error recommending pengajuan:', error);
-          }
-        });
-      } else {
-        this.hideConfirmModal();
+            break;
+
+          case 'Anda tidak memiliki akses untuk pengajuan ini':
+            alert('⚠️ Akses ditolak: ' + response.message);
+            break;
+
+          default:
+            alert('ℹ️ ' + response.message);
+            break;
+        }
+      },
+      error: (error) => {
+        const message = error?.error?.message || 'Terjadi kesalahan saat mencairkan pengajuan.';
+        console.error('❌ Error mencairkan pengajuan:', error);
+        alert('❌ ' + message);
       }
-    }
+    });
+  } else {
+    this.hideConfirmModal();
+  }
+}
+
 
     tolakPengajuan(id_pengajuan: string): void {
       console.log('Tombol Tolak diklik, menampilkan konfirmasi tolak.');
@@ -204,25 +237,59 @@ export class PengajuanBranchmanagerComponent {
       }
     }
 
-    confirmRejection(isConfirmed: boolean): void {
-      if (isConfirmed && this.selectedPengajuan) {
-        const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+    // confirmRejection(isConfirmed: boolean): void {
+    //   if (isConfirmed && this.selectedPengajuan) {
+    //     const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
 
-        this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
-          next: (response) => {
-            console.log('Penolakan berhasil:', response);
+    //     this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+    //       next: (response) => {
+    //         console.log('Penolakan berhasil:', response);
+    //         this.confirmRejectModal?.hide();
+    //         this.modal?.hide();
+    //         this.loadPengajuanMarketing();
+    //       },
+    //       error: (error) => {
+    //         console.error('Gagal menolak pengajuan:', error);
+    //       }
+    //     });
+    //   } else {
+    //     this.confirmRejectModal?.hide();
+    //   }
+    // }
+    confirmRejection(isConfirmed: boolean): void {
+  if (isConfirmed && this.selectedPengajuan) {
+    const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+
+    this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+      next: (response) => {
+        switch (response?.message) {
+          case 'Pengajuan berhasil ditolak':
+            alert('✅ ' + response.message);
             this.confirmRejectModal?.hide();
             this.modal?.hide();
             this.loadPengajuanMarketing();
-          },
-          error: (error) => {
-            console.error('Gagal menolak pengajuan:', error);
-          }
-        });
-      } else {
-        this.confirmRejectModal?.hide();
+            break;
+
+          case 'Anda tidak memiliki akses untuk pengajuan ini':
+            alert('⚠️ Akses ditolak: ' + response.message);
+            break;
+
+          default:
+            alert('ℹ️ ' + response.message);
+            break;
+        }
+      },
+      error: (error) => {
+        const message = error?.error?.message || 'Terjadi kesalahan saat menolak pengajuan.';
+        console.error('❌ Gagal menolak pengajuan:', error);
+        alert('❌ ' + message);
       }
-    }
+    });
+  } else {
+    this.confirmRejectModal?.hide();
+  }
+}
+
   
     private hideConfirmModal(): void {
       if (this.confirmModal) {
