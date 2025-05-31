@@ -191,37 +191,35 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
   //   }
   // }
   confirmRecommendation(isConfirmed: boolean): void {
-  if (isConfirmed && this.selectedPengajuan) {
-    const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
-    this.employeeService.recommendPengajuan(id, this.noteBaru).subscribe({
-      next: (response) => {
-        switch (response?.message) {
-          case 'Pengajuan berhasil direkomendasikan':
-            console.log('✅:', response.message);
-            alert('Sukses: ' + response.message);
-            this.hideConfirmModal();
-            this.loadPengajuanMarketing();
-            break;
-
-          case 'Anda tidak memiliki akses untuk pengajuan ini':
-            alert('⚠️ Akses ditolak: ' + response.message);
-            break;
-
-          default:
-            alert('ℹ️ ' + response.message);
-            break;
+    if (isConfirmed && this.selectedPengajuan) {
+      const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+      this.employeeService.recommendPengajuan(id, this.noteBaru).subscribe({
+        next: (response) => {
+          alert('✅ Sukses: Pengajuan berhasil direkomendasikan.');
+          this.hideConfirmModal();
+          this.loadPengajuanMarketing();
+        },
+        error: (error) => {
+          switch (error.status) {
+            case 403:
+              alert('⚠️ Akses ditolak: Anda tidak memiliki akses untuk pengajuan ini.');
+              break;
+            case 500:
+              alert('❌ Terjadi kesalahan server.');
+              break;
+            default:
+              const message = error?.error?.message || 'Terjadi kesalahan tidak diketahui.';
+              alert('❌ ' + message);
+              break;
+          }
+          console.error('❌ Error recommending pengajuan:', error);
         }
-      },
-      error: (error) => {
-        const message = error?.error?.message || 'Terjadi kesalahan saat merekomendasikan.';
-        console.error('❌ Error recommending pengajuan:', error);
-        alert('❌ ' + message);
-      }
-    });
-  } else {
-    this.hideConfirmModal();
+      });
+    } else {
+      this.hideConfirmModal();
+    }
   }
-}
+
 
 
   tolakPengajuan(id_pengajuan: string): void {
@@ -258,39 +256,38 @@ export class PengajuanMarketingComponent implements OnInit, AfterViewInit {
     //   }
     // }
     confirmRejection(isConfirmed: boolean): void {
-  if (isConfirmed && this.selectedPengajuan) {
-    const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+    if (isConfirmed && this.selectedPengajuan) {
+      const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
 
-    this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
-      next: (response) => {
-        switch (response?.message) {
-          case 'Pengajuan berhasil ditolak':
-            console.log('✅:', response.message);
-            alert('Sukses: ' + response.message);
-            this.confirmRejectModal?.hide();
-            this.modal?.hide();
-            this.loadPengajuanMarketing();
-            break;
-
-          case 'Anda tidak memiliki akses untuk pengajuan ini':
-            alert('⚠️ Akses ditolak: ' + response.message);
-            break;
-
-          default:
-            alert('ℹ️ ' + response.message);
-            break;
+      this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+        next: (response) => {
+          // Asumsikan response sukses pakai status 200
+          alert('✅ Sukses: Pengajuan berhasil ditolak.');
+          this.confirmRejectModal?.hide();
+          this.modal?.hide();
+          this.loadPengajuanMarketing();
+        },
+        error: (error) => {
+          switch (error.status) {
+            case 403:
+              alert('⚠️ Akses ditolak: Anda tidak memiliki akses untuk pengajuan ini.');
+              break;
+            case 500:
+              alert('❌ Terjadi kesalahan server.');
+              break;
+            default:
+              const message = error?.error?.message || 'Terjadi kesalahan tidak diketahui.';
+              alert('❌ ' + message);
+              break;
+          }
+          console.error('Gagal menolak pengajuan:', error);
         }
-      },
-      error: (error) => {
-        const message = error?.error?.message || 'Terjadi kesalahan saat menolak pengajuan.';
-        console.error('❌ Gagal menolak pengajuan:', error);
-        alert('❌ ' + message);
-      }
-    });
-  } else {
-    this.confirmRejectModal?.hide();
+      });
+    } else {
+      this.confirmRejectModal?.hide();
+    }
   }
-}
+
 
 
   private hideConfirmModal(): void {
