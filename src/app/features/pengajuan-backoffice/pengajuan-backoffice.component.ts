@@ -12,7 +12,7 @@ import { Modal } from 'bootstrap';
 import { EmployeeService } from '../../core/service/EmployeeService';
 import { UserCustomerImageService } from '../../core/service/UserCustomerImageService';
 import { HasFeatureDirective } from '../shared/directives/has-feature.directive';
-
+import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-pengajuan-backoffice',
@@ -197,31 +197,44 @@ export class PengajuanBackofficeComponent {
       next: (response) => {
         switch (response.message) {
           case 'Pengajuan berhasil dicairkan':
-            console.log('✅:', response.message);
-            this.hideConfirmModal();
-            this.loadPengajuanMarketing();
+            Swal.fire({
+              icon: 'success',
+              title: '✅ Sukses',
+              text: response.message
+            }).then(() => {
+              this.hideConfirmModal();
+              this.loadPengajuanMarketing();
+            });
             break;
 
           case 'Pengajuan tidak ditemukan':
-            console.warn('⚠️:', response.message);
-            alert('Pengajuan tidak ditemukan');
+            Swal.fire({
+              icon: 'warning',
+              title: '⚠️ Tidak Ditemukan',
+              text: response.message
+            });
             break;
 
           default:
-            console.log('ℹ️ Respon:', response.message);
-            alert(response.message);
+            Swal.fire({
+              icon: 'info',
+              title: 'ℹ️ Info',
+              text: response.message
+            });
             break;
         }
       },
       error: (error) => {
         console.error('❌ Gagal disburse pengajuan:', error);
-        alert('Terjadi kesalahan: ' + (error?.error?.message || 'Unknown error'));
+        const message = error?.error?.message || 'Terjadi kesalahan tidak diketahui.';
+        Swal.fire('❌ Error', message, 'error');
       }
     });
   } else {
     this.hideConfirmModal();
   }
 }
+
 
 
     tolakPengajuan(id_pengajuan: string): void {
@@ -265,32 +278,45 @@ export class PengajuanBackofficeComponent {
       next: (response) => {
         switch (response.message) {
           case 'Pengajuan berhasil ditolak':
-            console.log('✅:', response.message);
-            this.confirmRejectModal?.hide();
-            this.modal?.hide();
-            this.loadPengajuanMarketing();
+            Swal.fire({
+              icon: 'success',
+              title: '✅ Ditolak',
+              text: response.message
+            }).then(() => {
+              this.confirmRejectModal?.hide();
+              this.modal?.hide();
+              this.loadPengajuanMarketing();
+            });
             break;
 
           case 'Anda tidak memiliki akses untuk pengajuan ini':
-            console.warn('⚠️:', response.message);
-            alert('Akses ditolak: ' + response.message);
+            Swal.fire({
+              icon: 'warning',
+              title: '⚠️ Akses Ditolak',
+              text: response.message
+            });
             break;
 
           default:
-            console.log('ℹ️ Respon:', response.message);
-            alert(response.message);
+            Swal.fire({
+              icon: 'info',
+              title: 'ℹ️ Info',
+              text: response.message
+            });
             break;
         }
       },
       error: (error) => {
         console.error('❌ Gagal menolak pengajuan:', error);
-        alert('Terjadi kesalahan: ' + (error?.error?.message || 'Unknown error'));
+        const message = error?.error?.message || 'Terjadi kesalahan tidak diketahui.';
+        Swal.fire('❌ Error', message, 'error');
       }
     });
   } else {
     this.confirmRejectModal?.hide();
   }
 }
+
 
   
     private hideConfirmModal(): void {

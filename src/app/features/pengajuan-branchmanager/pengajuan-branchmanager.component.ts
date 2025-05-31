@@ -194,22 +194,30 @@ export class PengajuanBranchmanagerComponent {
         const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
 
         this.employeeService.AprovePengajuan(id, this.noteBaru).subscribe({
-          next: (response) => {
-            alert('✅ Pengajuan berhasil dicairkan.');
-            this.hideConfirmModal();
-            this.loadPengajuanMarketing();
+          next: () => {
+            Swal.fire({
+              title: '✅ Sukses',
+              text: 'Pengajuan berhasil dicairkan.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              this.hideConfirmModal();
+              this.loadPengajuanMarketing();
+            });
           },
           error: (error) => {
             switch (error.status) {
               case 403:
-                alert('⚠️ Akses ditolak: Anda tidak memiliki akses untuk pengajuan ini.');
+                Swal.fire('⚠️ Akses Ditolak', 'Anda tidak memiliki akses untuk pengajuan ini.', 'warning');
                 break;
+
               case 500:
-                alert('❌ Terjadi kesalahan server saat mencairkan pengajuan.');
+                Swal.fire('❌ Error Server', 'Terjadi kesalahan server saat mencairkan pengajuan.', 'error');
                 break;
+
               default:
                 const message = error?.error?.message || 'Terjadi kesalahan saat mencairkan pengajuan.';
-                alert('❌ ' + message);
+                Swal.fire('❌ Error', message, 'error');
                 break;
             }
             console.error('❌ Error mencairkan pengajuan:', error);
@@ -219,6 +227,7 @@ export class PengajuanBranchmanagerComponent {
         this.hideConfirmModal();
       }
     }
+
 
 
     tolakPengajuan(id_pengajuan: string): void {
@@ -255,43 +264,43 @@ export class PengajuanBranchmanagerComponent {
     //   }
     // }
     confirmRejection(isConfirmed: boolean): void {
-  if (isConfirmed && this.selectedPengajuan) {
-    const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
+      if (isConfirmed && this.selectedPengajuan) {
+        const id = this.selectedPengajuan?.id_pengajuan?.id_pengajuan;
 
-    this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
-      next: () => {
-        Swal.fire({
-          title: '✅ Sukses',
-          text: 'Pengajuan berhasil ditolak',
-          icon: 'success',
-          confirmButtonText: 'OK'
+        this.employeeService.rejectPengajuan(id, this.noteBaru).subscribe({
+          next: () => {
+            Swal.fire({
+              title: '✅ Sukses',
+              text: 'Pengajuan berhasil ditolak',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then(() => {
+              this.confirmRejectModal?.hide();
+              this.modal?.hide();
+              this.loadPengajuanMarketing();
+            });
+          },
+          error: (error) => {
+            switch (error.status) {
+              case 403:
+                Swal.fire('⚠️ Akses Ditolak', 'Anda tidak memiliki akses untuk pengajuan ini.', 'warning');
+                break;
+
+              case 500:
+                Swal.fire('❌ Error Server', 'Terjadi kesalahan server.', 'error');
+                break;
+
+              default:
+                const message = error?.error?.message || 'Terjadi kesalahan saat menolak pengajuan.';
+                Swal.fire('❌ Error', message, 'error');
+                break;
+            }
+          }
         });
-
+      } else {
         this.confirmRejectModal?.hide();
-        this.modal?.hide();
-        this.loadPengajuanMarketing();
-      },
-      error: (error) => {
-        switch (error.status) {
-          case 403:
-            Swal.fire('⚠️ Akses Ditolak', 'Anda tidak memiliki akses untuk pengajuan ini.', 'warning');
-            break;
-
-          case 500:
-            Swal.fire('❌ Error Server', 'Terjadi kesalahan server.', 'error');
-            break;
-
-          default:
-            const message = error?.error?.message || 'Terjadi kesalahan saat menolak pengajuan.';
-            Swal.fire('❌ Error', message, 'error');
-            break;
-        }
       }
-    });
-  } else {
-    this.confirmRejectModal?.hide();
-  }
-  }
+    }
 
   
     private hideConfirmModal(): void {
