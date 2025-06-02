@@ -90,6 +90,8 @@ export class ManajemenUsersemployeeComponent implements OnInit {
   }
 
   submitForm() {
+  this.currentEmployee.users.id_role = this.selectedRoleId;
+  this.currentEmployee.idbranch = this.selectedBranchId;
   const request: UpdateProfileEmployeeRequest = {
     nip: this.currentEmployee.nip,     // ⛔ tidak diambil dari form karena tidak boleh diubah
     nama: this.currentEmployee.users.nama,
@@ -112,7 +114,7 @@ export class ManajemenUsersemployeeComponent implements OnInit {
       },
     });
   } else {
-    // Create new employee
+    console.log('Creating employee with payload:', this.currentEmployee);
     this.employeeService.createEmployee(this.currentEmployee).subscribe({
       next: (res) => {
         alert('Employee berhasil dibuat!');
